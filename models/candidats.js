@@ -1,4 +1,4 @@
-xvar config = require('../config');
+var config = require('../config');
 
 exports.labels = function(){
   return Object.keys(config.candidats);

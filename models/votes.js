@@ -6,6 +6,12 @@ var candidats = require('./candidats');
 
 var results    = {},
     nbVotes    = 0;
+/*
+  * Les votes sont enregistrés ainsi :
+  * - une liste de label de candidats triée par ordre de préférence
+  * - un nombre de votes pour cette liste
+*/
+
 
 // incrémente le nombre de vote d'une certaine liste de préférence de label
 var add = function(labelList,next){
