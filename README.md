@@ -5,7 +5,7 @@ Un site, qui permet de tester des différents types d'élection.
 
 Pour l'installation, entrer les commandes suivantes :
 ```
-git clone git@github.com:laBecasse/vote-n-roll.git
+git clone https://github.com/laBecasse/vote-n-roll.git
 cd vote-n-roll
 npm install
 npm start
