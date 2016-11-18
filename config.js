@@ -5,11 +5,26 @@ var config = {};
   * - un nom, qui le définit de manière précise et conventionelle
 */
 config.candidats = {
-  "jos": {
-    "name"  : "Lionel Jospin"
+  "sar": {
+    "name"  : "Nicolas Sarkozy"
   },
-  "ch": {
-    "name" : "Jacques Chirac"
+  "fil": {
+    "name" : "François Fillon"
+  },
+  "kos":{
+    "name" : "Nathalie Kosciusko-Morizet"
+  },
+  "jup": {
+    "name": "Alain Juppé"
+  },
+  "cop":{
+    "name": "Jean-François Copé"
+  },
+  "lem":{
+    "name": "Bruno Le Maire"
+  },
+  "poi":{
+    "name": "Jean-Frédéric Poisson"
   }
 };
 
