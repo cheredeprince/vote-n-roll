@@ -2,19 +2,19 @@ var Datastore = require('nedb'),
     db        = new Datastore({ filename: './db/votes', autoload: true }),
     _         = require('lodash');
 
-var candidats = require('./candidats');
+var Candidats = require('./candidats');
 
 var nbVotes   = 0;
 /*
   * Les votes sont enregistrés ainsi :
-  * - une liste de label de candidats triée par ordre de préférence
+  * - une collection qui associe à chaque candidat le rang
   * - un nombre de votes pour cette liste
 */
 
 
 // incrémente le nombre de vote d'une certaine liste de préférence de label
 var add = function(labelList,next){
-  var candidatsLabels = candidats.labels(),
+  var candidatsLabels = Candidats.labels(),
       interLabels = _.intersection(labelList,candidatsLabels),
       voteLabel;
 
@@ -94,7 +94,7 @@ var initResults = function(){
   db.find({},{number:1,list:1},function(err,votes){
     if(err) throw err;
     
-    var candidatsLabels = candidats.labels();
+    var candidatsLabels = Candidats.labels();
 
     results.maj1 = maj1Sct(votes);
     results.maj2 = maj2Sct(votes);
@@ -111,7 +111,7 @@ var initResults = function(){
 /* mise à jour de la majorité à 1 tour*/
 /*
 var upMaj1 = function(labelList){
-  var candidatsLabels = candidats.labels();
+  var candidatsLabels = Candidats.labels();
 
   var voteLabel = labelList[0],
       first     = results.first;
@@ -268,9 +268,15 @@ var majorityVote = function(votes,nbPerTurn){
           return res;
         },{});
   
-  if(votes.length != 0)
-    result.ranked = _.sortBy(votes[0].list,
-                             (label)=> - finalScore[label]);
+  if(votes.length != 0){
+    var sortedCand = _.sortBy(votes[0].list,
+                              (label)=> - finalScore[label]);
+
+    result.ranked = _.reduce(sortedCand,
+                             (res,cand,index)=> {res[cand] = index +1;
+                                                 return res;},
+                             {})
+  }
   
   return result;
 };
@@ -309,8 +315,15 @@ var bordasSct = function(votes){
         },{});
 
   var ranked = [];
-  if(votes.length != 0)
-    ranked = _.sortBy(votes[0].list, (label)=> - score[label]);
+  if(votes.length != 0){
+    var sortedCand = _.sortBy(votes[0].list,
+                              (label)=> - score[label]);
+
+    ranked = _.reduce(sortedCand,
+                             (res,cand,index)=> {res[cand] = index +1;
+                                                 return res;},
+                             {})
+  }
 
   return {
     "ranked": ranked,
@@ -339,8 +352,6 @@ var condorcetSct = function(votes){
     }
     return res;
   },{}) 
-  console.log(duels);
-  console.log(score);
 }
 
 /*------------------- Initialisation -------------------*/
@@ -375,6 +386,16 @@ var display = function(){
 
 init();
 
+// var c = Candidats.labels(),i=0;
+// var after = function(err,v){
+//   i++;
+//   if(i<1000)
+//     add(_.shuffle(c),after);
+//   else
+//     init();
+// };
+
+// after();
 
 exports.add         = add;
 exports.getMaj1Res  = getMaj1Res;

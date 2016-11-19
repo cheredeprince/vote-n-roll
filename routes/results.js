@@ -1,6 +1,7 @@
 var express = require('express'),
     _       = require('lodash'),
-    Votes   = require('../models/votes');
+    Votes   = require('../models/votes'),
+    Candidats = require('../models/candidats');
 var router = express.Router();
 
 /* GET les resultats. */
@@ -9,19 +10,29 @@ router.get('/', function(req, res, next) {
   var message = req.query.message,
       maj1Res = Votes.getMaj1Res(),
       maj2Res = Votes.getMaj2Res(),
-      majnRes = Votes.getMajnRes();
+      majnRes = Votes.getMajnRes(),
+      totalRes = [maj1Res,maj2Res,majnRes];
 
 
   var data1 = majorityData(maj1Res),
       data2 = majorityData(maj2Res),
-      datan = majorityData(majnRes);
+      datan = majorityData(majnRes),
+      totalScore = _.map(totalRes,function(scrutin,i){
+        var r = _.clone(scrutin.ranked);
+        r = _.mapKeys(r,(v,lab) => Candidats.getNameOf(lab))
+        r.category = "scrutin"+i;
+        console.log(r)
+        return r;
+      });
+
   res.render('results', { message: message,
                           data1 : data1,
                           title1 : "Scrutin majoritaire à 1 tour",
                           data2 : data2,
                           title2 : "Scrutin majoritaire à 2 tours",
                           datan:datan,
-                          titlen : "Scrutin par éliminations"
+                          titlen : "Scrutin par éliminations",
+                          totalScore : totalScore
                         });
 });
 
@@ -38,7 +49,7 @@ var majorityData = function(result){
       id=-1;
   
   data.times = _.map(result.scores,
-                     (score,turn) => _.sortBy(
+                     (score,turn) => //_.sortBy(
                        _.map(score,
                              (n,lab) => {
                                id++;
@@ -46,11 +57,13 @@ var majorityData = function(result){
                                
                                return {
                                  "id": id,
-                                 "nodeName": lab,
-                                 "nodeValue": n
+                                 "nodeName": Candidats.getNameOf(lab),
+                                 "nodeValue": n,
+                                 "image" : Candidats.getImageOf(lab),
+                                 "color"  : Candidats.getColorOf(lab)
                                }
-                             }
-                            ),(o)=>result.ranked.indexOf(o.nodeName))
+                             })
+//                            , (o)=>1)// result.ranked[o.nodeName])
                     );
   
   data.links = _.flatMap(result.flux,

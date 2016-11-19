@@ -10,19 +10,13 @@ body {
     margin: 1em;
 }
     
-.node {
-  stroke: #fff;
-  stroke-width: 2px;
-}
-
 .link {
   fill: none;
   stroke: #000;
   opacity: .3;
 }
 .link.on {
-  stroke: #F00;
-  opacity: .7;
+  opacity: 1;
 }
 
 .node {
@@ -40,7 +34,12 @@ body {
     <p></p>
 
         <script src="/javascripts/results.js"></script>
-    <script>
+        <script>
+
+      var totalScore =  <%- JSON.stringify(totalScore) %>;
+      displayScore(totalScore);
+
+          
       var data1=  <%- JSON.stringify(data1) %>;
 //      displayMajority(data1);
 

@@ -11,6 +11,20 @@ exports.getNameOf = function(label){
     return undefined;
 };
 
+exports.getImageOf = function(label){
+  if(config.candidats[label])
+    return config.candidats[label].image;
+  else
+    return undefined;
+};
+
+exports.getColorOf = function(label){
+  if(config.candidats[label])
+    return config.candidats[label].color;
+  else
+    return undefined;
+};
+
 exports.existsLabel = function(label){
   if(config.candidats[label])
     return true;
