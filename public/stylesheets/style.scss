@@ -1,0 +1,84 @@
+body {
+    margin: 1em;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.link {
+    fill: none;
+    opacity: .3;
+}
+
+.link.on {
+    opacity: 1;
+}
+
+.node {
+    stroke: none;
+}
+
+body {
+    /*ne pas center */
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.page {
+    width: 960px;
+    height: 500px;
+    margin: auto;
+    position: relative;
+}
+
+svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.toolTip {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    position: absolute;
+    display: none;
+    width: auto;
+    height: auto;
+    background: none repeat scroll 0 0 white;
+    border: 0 none;
+    border-radius: 8px 8px 8px 8px;
+    box-shadow: -3px 3px 15px #888888;
+    color: black;
+    font: 12px sans-serif;
+    padding: 5px;
+    text-align: center;
+}
+
+text {
+    font: 10px sans-serif;
+    color: white;
+}
+text.value {
+    font-size: 120%;
+    fill: white;
+}
+
+.axis path,.axisHorizontal path{
+    fill: none;
+    display: none;
+    stroke: black;
+    shape-rendering: crispEdges;
+}
+
+.axis  .tick,.axisHorizontal .tick {
+    stroke-width: 1;
+    stroke: rgba(0, 0, 0, 0.4);
+}
+
+.axis  .tick {
+    stroke: rgba(0, 0, 0, 1);
+}
+
+.title{
+    font-size: 1.2em;
+}
+
+.title::first-letter{
+    text-transform: uppercase;
+}

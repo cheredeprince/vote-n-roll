@@ -1,55 +1,52 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Résultats du vote</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js?2.5.0"></script>
-        <meta name="viewport" content="width=device-width">
-    <style type="text/css">
-body {
-    margin: 1em;
-}
-    
-.link {
-  fill: none;
-  stroke: #000;
-  opacity: .3;
-}
-.link.on {
-  opacity: 1;
-}
-
-.node {
-    stroke: none;
-}
-
-    </style>
+    <meta charset="UTF-8">
+    <title>Vote'n Roll</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/knacss.css" media="all">
+    <link rel="stylesheet" href="/stylesheets/style.css" media="all">
   </head>
   <body>
-    <%if(message){%>
-    <p class="message"><%=message%></p>
-    <%}%>
     
-    <h1>Les Résultats des élections</h1>
-    <p></p>
+    <header id="header" role="banner" class="line pam">
+      <h1>Votes'n Roll</h1>
+      <nav id="navigation" role="navigation">
+	<ul class="pam">
+	  <li class="pam inbl"><a href="/vote">L'isoloir</a></li>
+	  <li class="pam inbl"><a href="/resultats">Les résultats</a></li>
+	</ul>
+      </nav>
+    </header>
+    <div id="main" role="main" class="line pam">
+      <div class="page">
+        <%if(message){%>
+        <p class="message"><%=message%></p>
+      <%}%>
+      
+      <h1>Les Résultats des élections</h1>
+      <!-- <script src="https://d3js.org/d3.v4.min.js"></script> -->
+      <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js?2.5.0"></script>
+      <script src="/javascripts/display.js"></script>
+      <script>
+        var totalScore =  <%- JSON.stringify(total) %>;
+        displayScore(totalScore);
+        
+        
+        <% for(label in scrutins){%>
+        <%-scrutins[label].display%>( <%- JSON.stringify(scrutins[label].data)%>,<%- JSON.stringify(scrutins[label].title)%>);
+        <%}%>
+      </script>
+    </div>
+    </div>
+    <footer id="footer" role="contentinfo" class="line pam txtcenter">
+      <ul class="pam">
+	<li class="pam inbl"><a href="/credit">Crédit</a></li>
+	<li class="pam inbl"><a href="https://cheredeprince.net">Chère de prince</a></li>
+        <li class="pam inbl"><a href="https://twitter.com/cheredeprince">Twitter</a></li>
+        <li class="pam inbl"><a href="https://facebook.com/cheredeprince">Facebook</a></li>
+      </ul>
+    </footer>
 
-        <script src="/javascripts/results.js"></script>
-        <script>
-
-      var totalScore =  <%- JSON.stringify(totalScore) %>;
-      displayScore(totalScore);
-
-          
-      var data1=  <%- JSON.stringify(data1) %>;
-//      displayMajority(data1);
-
-      var data2=  <%- JSON.stringify(data2) %>;
-      displayMajority(data2,<%- JSON.stringify(title2) %>);
-
-      var datan=  <%- JSON.stringify(datan) %>;
-      displayMajority(datan,<%- JSON.stringify(titlen) %>);
-    </script>
-
-    
   </body>
 </html>

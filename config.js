@@ -42,4 +42,43 @@ config.candidats = {
   }
 };
 
+config.scrutins = {
+  "maj1": {
+    "name"   : "scrutin majoritaire à 1 tour",
+    "getRes" : "getMaj1Res",
+    "mkRes"  : "maj1Sct",
+    "getData": "hist",
+    "display": "displayHist"
+  },
+  "maj2": {
+    "name"   : "scrutin majoritaire à 2 tours",
+    "getRes" : "getMaj2Res",
+    "mkRes"  : "maj2Sct",
+    "getData": "majData",
+    "display": "displayMajority"
+  },
+  "majn": {
+    "name"   : "scrutin par éliminations",
+    "getRes" : "getMajnRes",
+    "mkRes"  : "majnSct",
+    "getData": "majData",
+    "display": "displayMajority"
+  },
+  "bordas" : {
+    "name"   : "scrutin par scores (Bordas)",
+    "getRes" : "get",
+    "mkRes"  : "bordasSct",
+    "getData": "hist",
+    "display": "displayHist"
+  },
+  // "condorcet" : {
+  //   "name"   : "scrutin par duels (Condorcet)",
+  //   "getRes" : "get",
+  //   "mkRes"  : "condorcetSct",
+  //   "getData": "",
+  //   "display": ""
+  // }
+}
+
+
 module.exports =  config;
