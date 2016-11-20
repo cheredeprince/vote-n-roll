@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
+<%-include partials/header%>
     <h1>Faites votre vote</h1>
     <p>Bienvenue dans votre isoloir, ici il vous faut voter en sélectionnant par ordre de préférence tous les candidats, du plus favorable au moins favorable. Un seul vote est permi par personne, on compte sur vous.</p>
     <p>La liste des candidats est : </p>
@@ -27,5 +21,4 @@
       </ol>
       <input type="submit" value="Voter">
     </form>
-  </body>
-</html>
+<%-include partials/footer%>

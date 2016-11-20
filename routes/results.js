@@ -11,18 +11,23 @@ router.get('/', function(req, res, next) {
   //s'il y a un message à afficher
   var message = req.query.message,
       results = Votes.getResults(),
-      info = { "message" : message,
-               "scrutins": {}
+      info = { "title" : "Les résultats",
+               "message" : message,
+               "scrutins": []
              };
 
     _.forEach(Config.scrutins,function(scrutin,label){
-      info.scrutins[label] = {
-        "title" : scrutin.name,
+      info.scrutins.push({
+        "label" : label,
+        "name"  : scrutin.name,
         "data"  : Data[scrutin.getData](results[label]),
-        "display": scrutin.display
-      };
+        "display": scrutin.display,
+        "chartTitle" : scrutin.chartTitle,
+        "presentation": scrutin.presentation
+      });
     });
 
+  console.log(info.scrutins)
   
   var totalScore = _.map(results,function(scrRes,label){
     var r = _.clone(scrRes.ranked);
@@ -30,6 +35,8 @@ router.get('/', function(req, res, next) {
     r.category = Config.scrutins[label].name;
     return r;
   });
+
+  
 
   info.total = totalScore;
 

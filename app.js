@@ -9,6 +9,7 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 var vote  = require('./routes/vote');
 var results  = require('./routes/results');
+var credit  = require('./routes/credit');
 
 var config = require('./config');
 
@@ -30,7 +31,7 @@ app.use(require('node-sass-middleware')({
   src: path.join(__dirname, 'public'),
   dest: path.join(__dirname, 'public'),
   sourceMap: true,
-  debug : true
+//  debug : true
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -38,6 +39,7 @@ app.use('/', index);
 app.use('/users', users);
 app.use('/vote',vote);
 app.use('/resultats',results);
+app.use('/credit',credit);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

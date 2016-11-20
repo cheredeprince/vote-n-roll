@@ -1,9 +1,9 @@
 var config = {};
 
 /*chaque candidat possède:
-  * - un label, qui le définit de manière courte
-  * - un nom, qui le définit de manière précise et conventionelle
-*/
+ * - un label, qui le définit de manière courte
+ * - un nom, qui le définit de manière précise et conventionelle
+ */
 config.candidats = {
   "sar": {
     "name"  : "Nicolas Sarkozy",
@@ -48,36 +48,46 @@ config.scrutins = {
     "getRes" : "getMaj1Res",
     "mkRes"  : "maj1Sct",
     "getData": "hist",
-    "display": "displayHist"
+    "display": "displayHist",
+    "chartTitle" : "nombre de voix par candidat",
+    "presentation" : ""
   },
   "maj2": {
     "name"   : "scrutin majoritaire à 2 tours",
     "getRes" : "getMaj2Res",
     "mkRes"  : "maj2Sct",
     "getData": "majData",
-    "display": "displayMajority"
+    "display": "displayMajority",
+    "chartTitle" : "répartition des voix après le premier tour",
+    "presentation" : ""
   },
   "majn": {
     "name"   : "scrutin par éliminations",
     "getRes" : "getMajnRes",
     "mkRes"  : "majnSct",
     "getData": "majData",
-    "display": "displayMajority"
+    "display": "displayMajority",
+    "chartTitle" : "répartition des voix, après chaque tour",
+    "presentation": ""
   },
   "bordas" : {
     "name"   : "scrutin par scores (Bordas)",
     "getRes" : "get",
     "mkRes"  : "bordasSct",
     "getData": "hist",
-    "display": "displayHist"
+    "display": "displayHist",
+    "chartTitle" : "score par candidat",
+    "presentation" : ""
   },
-  // "condorcet" : {
-  //   "name"   : "scrutin par duels (Condorcet)",
-  //   "getRes" : "get",
-  //   "mkRes"  : "condorcetSct",
-  //   "getData": "",
-  //   "display": ""
-  // }
+  "condorcet" : {
+    "name"   : "scrutin par duels (Condorcet)",
+    "getRes" : "get",
+    "mkRes"  : "condorcetSct",
+    "getData": "hist",
+    "display": "displayHist",
+    "chartTitle" : "nombre de duel remporté par candidat",
+    "presentation" : ""
+  }
 }
 
 

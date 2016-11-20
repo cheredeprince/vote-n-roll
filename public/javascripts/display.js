@@ -1,4 +1,4 @@
-var displayHist = function(data,title){
+var displayHist = function(data,label,title){
 
   data = data.sort(function(d,e){return e.value - d.value;});
 
@@ -7,7 +7,7 @@ var displayHist = function(data,title){
       valueMargin = 4,
       barRatio = 0.4,
       width = parseInt(d3.select('.page').style('width'), 10),
-      height = parseInt(d3.select('.page').style('height'), 10),
+      height = 500,
       barHeight = (height-axisMargin-margin*2)* barRatio/data.length,
       barPadding = (height-axisMargin-margin*2)*(1-barRatio)/data.length,
       imageSize = barHeight + barPadding*2*.4,
@@ -16,7 +16,7 @@ var displayHist = function(data,title){
 
   max = d3.max(data, function(d) { return d.value; });
   
-  svg = d3.select('.page')
+  svg = d3.select('.scr-chart-'+label)
     .append("svg")
     .attr("width", width)
     .attr("height", height);
@@ -99,11 +99,11 @@ var displayHist = function(data,title){
 }
 
 
-var displayScore = function(data){
+var displayScore = function(data,label,title){
 
   var div = d3.select("body").append("div").attr("class", "toolTip");
 
-  var margin = {top: 20, right: 20, bottom: 30, left: 40},
+  var margin = {top: 40, right: 20, bottom: 30, left: 40},
       width = 960 - margin.left - margin.right,
       height = 500 - margin.top - margin.bottom;
 
@@ -127,12 +127,23 @@ var displayScore = function(data){
       .orient("left")
       .tickFormat(d3.format(".2s"));
 
-  var svg = d3.select(".page").append("svg")
+  var svg = d3.select(".scr-chart-"+label).append("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
-      .append("g")
+
+  //title
+  svg.append("text")
+    .attr("class","title")
+    .attr("x",(width/2))
+    .attr("y", margin.top/2)
+    .attr("text-anchor","middle")
+    .text(title);
+
+  //svg reset
+  var svg = svg.append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+  
   var ageNames = d3.keys(data[0]).filter(function(key) { return key !== "category"; });
   
   data.forEach(function(d) {
@@ -154,14 +165,27 @@ var displayScore = function(data){
       .attr("class", "state")
       .attr("transform", function(d) { return "translate(" + x0(d.category) + ",0)"; });
   
-  state.selectAll("rect")
+var bar =  state.selectAll("rect")
     .data(function(d) { return d.ages; })
-    .enter().append("rect")
+    .enter()
+    .append("g")
+    .attr("transform", function(d) { return "translate("+x1(d.name)+","+y(d.value)+")"; });
+  
+  bar.append("rect")
     .attr("width", x1.rangeBand())
-    .attr("x", function(d) { return x1(d.name); })
-    .attr("y", function(d) { return y(d.value); })
     .attr("height", function(d) { return height - y(d.value); })
-    .style("fill", function(d) { return color(d.name); });
+    .style("fill", function(d) { return color(d.name); })
+  
+  bar.append("text")
+    .attr("class","value")
+    .attr("y",4)
+    .attr("dy",".75em")
+    .attr("text-anchor","middle")
+    .attr("x",x1.rangeBand()/2)
+    .text(function(d){ return d.value;})
+  
+
+  
   
   var legend = svg.selectAll(".legend")
       .data(ageNames.slice().reverse())
@@ -205,7 +229,7 @@ var displayScore = function(data){
    ]
    }
 */
-var displayMajority = function(data,title){
+var displayMajority = function(data,label,title){
   /* Process Data */
 
 
@@ -303,7 +327,7 @@ var displayMajority = function(data,title){
       .interpolate('basis');
   
   // root
-  var svg = d3.select(".page")
+  var svg = d3.select(".scr-chart-"+label)
       .append("svg:svg")
       .attr("width", w + margin.left + margin.right)
       .attr("height",h + margin.top + margin.bottom);
