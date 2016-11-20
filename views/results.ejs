@@ -1,9 +1,6 @@
 <%-include partials/header%>
 <div id="main" role="main" class="line pam">
     <div class="page">
-        <!-- <script src="https://d3js.org/d3.v4.min.js"></script> -->
-        <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js?2.5.0"></script>
-        <script src="/javascripts/display.js"></script>
         <%if(message){%>
             <p class="message"><%=message%></p>
         <%}%>
@@ -18,6 +15,10 @@
             <% include partials/scrutin %>
         <%})%>
         
+        <!-- <script src="https://d3js.org/d3.v4.min.js"></script> -->
+        <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js?2.5.0"></script>
+        <script src="/javascripts/display.js"></script>
+
         <script>
          var totalScore =  <%- JSON.stringify(total) %>;
          displayScore(totalScore,"total","rang des candidants par scrutin");

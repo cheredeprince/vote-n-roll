@@ -18,8 +18,7 @@ body {
 
 .page {
   width: 960px;
-  margin: auto;
-  position: relative; }
+  margin: auto; }
 
 svg {
   width: 100%;
@@ -67,5 +66,18 @@ text.value {
 
 .title::first-letter {
   text-transform: uppercase; }
+
+/* vote*/
+.card-head {
+  position: relative; }
+
+.card-number {
+  position: absolute;
+  bottom: 12.5%;
+  right: 12.5%;
+  font-size: 2em;
+  background-color: red;
+  border-radius: 50%;
+  color: white; }
 
 /*# sourceMappingURL=style.css.map */

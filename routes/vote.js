@@ -11,27 +11,34 @@ var Votes     = require('../models/votes.js'),
 /* GET formulaire de vote */
 router.get('/', function(req, res, next) {
   var candLabel = Candidats.labels(),
-      candName  = _.map(candLabel,(label) => Candidats.getNameOf(label)),
-      nameLab   = _.map(candLabel,(label) => [label,Candidats.getNameOf(label)]);
+      nameLab   = _.map(candLabel,
+                        function(label){
+                          return { "label" : label,
+                                   "name"  : Candidats.getNameOf(label),
+                                   "image" : Candidats.getImageOf(label)
+                                 };
+                        });
   
   res.render('vote',{
     "title"   : 'Votes',
-    "nameLab" : nameLab
+    "nameLab" : _.shuffle(nameLab)
   });
 });
 
 /* POST un vote */
 router.post('/ajout', function(req, res, next){
   console.log(req.body)
+
+  var candLabel = Candidats.labels();
   var params    = req.body,
-      i         = 0,
       labelList = [];
 
-  while(params['item-'+i]){
-    labelList[i] = params['item-'+i];
-    i++;
+  for(index in candLabel){
+    var i = parseInt(params[candLabel[index]],10);
+    labelList[i] = candLabel[index];
   }
 
+  console.log(labelList)
   Votes.add(labelList,function(err){
     if(err) return next(err);
     var message = encodeURIComponent("Votre vote a été pris en compte.");

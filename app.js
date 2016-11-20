@@ -6,7 +6,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
-var users = require('./routes/users');
 var vote  = require('./routes/vote');
 var results  = require('./routes/results');
 var credit  = require('./routes/credit');
@@ -36,7 +35,6 @@ app.use(require('node-sass-middleware')({
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
-app.use('/users', users);
 app.use('/vote',vote);
 app.use('/resultats',results);
 app.use('/credit',credit);

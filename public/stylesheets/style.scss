@@ -21,11 +21,9 @@ body {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-.page {
+.page{
     width: 960px;
-
     margin: auto;
-    position: relative;
 }
 
 svg {
@@ -81,4 +79,24 @@ text.value {
 
 .title::first-letter{
     text-transform: uppercase;
+}
+
+/* vote*/
+
+.card{
+    
+}
+
+.card-head{
+    position:relative;
+}
+
+.card-number{
+    position: absolute;
+    bottom: 12.5%;
+    right: 12.5%;
+    font-size: 2em;
+    background-color: red;
+    border-radius: 50%;
+    color:white;
 }
