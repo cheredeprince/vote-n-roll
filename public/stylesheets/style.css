@@ -68,6 +68,32 @@ text.value {
   text-transform: uppercase; }
 
 /* vote*/
+.card:hover {
+  cursor: pointer; }
+
+.card-photo {
+  -webkit-filter: grayscale(1);
+  -moz-filter: grayscale(1);
+  -ms-filter: grayscale(1);
+  -o-filter: grayscale(1);
+  filter: grayscale(1);
+  -webkit-transition: filter 1s;
+  transition: filter 1s; }
+
+.choosen-card .card-photo {
+  -webkit-filter: none;
+  -moz-filter: none;
+  -ms-filter: none;
+  -o-filter: none;
+  filter: none; }
+
+.card:hover .card-photo {
+  -webkit-filter: none;
+  -moz-filter: none;
+  -ms-filter: none;
+  -o-filter: none;
+  filter: none; }
+
 .card-head {
   position: relative; }
 
@@ -76,7 +102,7 @@ text.value {
   bottom: 12.5%;
   right: 12.5%;
   font-size: 2em;
-  background-color: red;
+  background-color: black;
   border-radius: 50%;
   color: white; }
 

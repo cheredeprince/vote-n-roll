@@ -85,7 +85,7 @@ config.scrutins = {
     "mkRes"  : "condorcetSct",
     "getData": "hist",
     "display": "displayHist",
-    "chartTitle" : "nombre de duel remporté par candidat",
+    "chartTitle" : "nombre de duels remportés par candidat",
     "presentation" : ""
   }
 }

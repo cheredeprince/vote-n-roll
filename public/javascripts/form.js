@@ -11,7 +11,9 @@ window.onload = function(){
   
   for(var i=0;i<cards.length;i++){
     cards[i].onclick = function(){
-      var cardNumber = this.getElementsByClassName('card-number')[0],
+      
+      var card = this,
+          cardNumber = this.getElementsByClassName('card-number')[0],
           cardSelect = this.getElementsByTagName('select')[0];
       
       console.log(cardSelect.value)
@@ -21,11 +23,13 @@ window.onload = function(){
         var value = stack.pop();
         cardNumber.innerHTML = value +1;
         cardSelect.value = value;
+        card.className += " choosen-card";
       }else{
         var value = cardSelect.value;
         cardSelect.value= "";
         cardNumber.innerHTML = "";
         stack.push(+value);
+        card.className = "card";
       }
     };
     //on cache et initialise
