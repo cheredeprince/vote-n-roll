@@ -130,3 +130,55 @@ text.value {
     border-radius: 50%;
     color:white;
 }
+
+
+
+.btn {
+  background: #37948b;
+  background-image: -webkit-linear-gradient(top, #37948b, #2a877e);
+  background-image: -moz-linear-gradient(top, #37948b, #2a877e);
+  background-image: -ms-linear-gradient(top, #37948b, #2a877e);
+  background-image: -o-linear-gradient(top, #37948b, #2a877e);
+  background-image: linear-gradient(to bottom, #37948b, #2a877e);
+  -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+  border-radius: 28px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 20px;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+}
+
+.btn:hover {
+  background: #45b5a8;
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.scr-chart{
+    margin: 2em 0;
+}
+
+
+
+@media (max-width: $medium) {
+.video-wrapper {
+    float: none;
+    clear: both;
+    width: 100%;
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 25px;
+    height: 0;
+}
+
+
+.video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+}

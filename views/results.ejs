@@ -1,33 +1,33 @@
 <%-include partials/header%>
-<div id="main" role="main" class="line pam">
-    <div class="page">
-        <%if(message){%>
-            <p class="message"><%=message%></p>
-        <%}%>
-        
-        <h1>Les Résultats des élections</h1>
 
-        <% include partials/total %>
-        
-        
+<div class="page">
+    <%if(message){%>
+        <p class="message"><%=message%></p>
+    <%}%>
+    
+    <h1>Les Résultats des élections</h1>
 
-        <% scrutins.forEach(function(scrutin){ %>%>
-            <% include partials/scrutin %>
-        <%})%>
-        
-        <!-- <script src="https://d3js.org/d3.v4.min.js"></script> -->
-        <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js?2.5.0"></script>
-        <script src="/javascripts/display.js"></script>
+    <% include partials/total %>
+    
+    
 
-        <script>
-         var totalScore =  <%- JSON.stringify(total) %>;
-         displayScore(totalScore,"total","rang des candidats par scrutin");
-         
-         
-         <% scrutins.forEach(function(scrutin){%>
-             <%-scrutin.display%>(<%- JSON.stringify(scrutin.data)%>,<%-JSON.stringify(scrutin.label)%>,<%-JSON.stringify(scrutin.chartTitle)%>);
-         <%})%>
-        </script>
-    </div>
+    <% scrutins.forEach(function(scrutin){ %>%>
+        <% include partials/scrutin %>
+    <%})%>
+    
+    <!-- <script src="https://d3js.org/d3.v4.min.js"></script> -->
+    <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js?2.5.0"></script>
+    <script src="/javascripts/display.js"></script>
+
+    <script>
+     var totalScore =  <%- JSON.stringify(total) %>;
+     displayScore(totalScore,"total","rang des candidats par scrutin");
+     
+     
+     <% scrutins.forEach(function(scrutin){%>
+         <%-scrutin.display%>(<%- JSON.stringify(scrutin.data)%>,<%-JSON.stringify(scrutin.label)%>,<%-JSON.stringify(scrutin.chartTitle)%>);
+     <%})%>
+    </script>
 </div>
+
 <%-include partials/footer%>

@@ -1,12 +1,7 @@
 <%-include partials/header%>
-<div role="main" class="w100 large-w75 extra-large-w50 center">
+
     <h1>Faites votre vote</h1>
-    <p>Bienvenue dans votre isoloir, ici il te faut voter en sélectionnant par ordre de préférence les candidats, du plus favorable au moins favorable. Un seul vote est permis par personne, ne triche pas.</p>
-    <p>Clique sur les candidats suivant ton ordre de préférence, puis soumets ton vote.</p>
-    <!-- <ul><% for(var i = 0;i< nameLab.length;i++){%>
-         <li><%=nameLab[i][1]%> (<%=nameLab[i][0]%>)</li>
-         <%}%>
-         </ul> -->
+    <p>Sélectionne les candidats par ordre de préférence, puis soumets ton vote.</p>
 
     <form action="/vote/ajout" method="post" class="txtcenter">
         <div class="grid-4-small-2 has-gutter-xl">
@@ -14,8 +9,8 @@
                 <% include partials/card %>
             <%}%>
         </div>
-        <input type="submit" value="Voter">
+        <input type="submit" class="btn" value="Voter">
     </form>
-</div>
+
 <script src="/javascripts/form.js"></script>
 <%-include partials/footer%>
