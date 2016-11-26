@@ -1,5 +1,5 @@
 var Datastore = require('nedb'),
-    db        = new Datastore({ filename: './db/votes', autoload: true }),
+    db        = new Datastore({ filename: __dirname+'/../db/votes', autoload: true }),
     _         = require('lodash');
 
 var Candidats = require('./candidats'),
