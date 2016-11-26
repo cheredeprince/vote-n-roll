@@ -8,11 +8,14 @@ $grid-gutters: ( '': 1rem, '-l': 2rem, '-xl': 4rem );
 // https://github.com/alsacreations/KNACSS/issues/133;
 $iefix: 0.01px;
 @media (min-width: ($tiny + 1)) {
-  [class*=" grid-"],
-  [class^="grid-"] {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    [class*=" grid-"],
+    [class^="grid-"] {
+        display: -webkit-flex;
+        -webkit-flex-direction: row;
+        -webkit-flex-wrap: wrap;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
 
     & > * {
       box-sizing: border-box;
