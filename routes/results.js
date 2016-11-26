@@ -29,14 +29,21 @@ router.get('/', function(req, res, next) {
 
   console.log(info.scrutins)
   
-  var totalScore = _.map(results,function(scrRes,label){
-    var r = _.clone(scrRes.ranked);
-    r = _.mapKeys(r,(v,lab) => Candidats.getNameOf(lab))
-    r.category = Config.scrutins[label].name;
-    return r;
-  });
+  // var totalScore = _.map(results,function(scrRes,label){
+  //   var r = _.clone(scrRes.ranked);
+  //   r = _.mapKeys(r,(v,lab) => Candidats.getNameOf(lab))
+  //   r.category = Config.scrutins[label].name;
+  //   return r;
+  // });
 
-  
+  var totalScore = _.map(Candidats.labels(),function(label){
+    var c = _.reduce(results,function(res,scrRes,scrName){
+      res[Config.scrutins[scrName].name] = scrRes.ranked[label];
+      return res;
+    },{});
+    c.category = Candidats.getNameOf(label);
+    return c;
+  })  
 
   info.total = totalScore;
 

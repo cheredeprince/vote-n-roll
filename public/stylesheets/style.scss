@@ -8,6 +8,13 @@ body {
     hyphens: auto;
 }
 
+h2:first-letter{
+    text-transform: uppercase;
+}
+
+
+
+
 .link {
     fill: none;
     opacity: .3;
@@ -72,12 +79,9 @@ text.value {
 
 /* vote*/
 
-
-
 .card:hover{
     cursor:pointer;
 }
-
 
 .card-photo{
     -webkit-filter: grayscale(1);
@@ -85,7 +89,6 @@ text.value {
     -ms-filter: grayscale(1);
     -o-filter: grayscale(1);
     filter: grayscale(1);
-
     -webkit-transition : filter 1s;
     transition : filter 1s;
 }
@@ -120,8 +123,6 @@ text.value {
     color:white;
 }
 
-
-
 .btn {
     background: #37948b;
     background-image: -webkit-linear-gradient(top, #37948b, #2a877e);
@@ -149,8 +150,6 @@ text.value {
     margin: 2em 0;
 }
 
-
-
 @media (max-width: $medium) {
     .video-wrapper {
         float: none;
@@ -162,7 +161,6 @@ text.value {
         height: 0;
     }
 
-
     .video-wrapper iframe {
         position: absolute;
         top: 0;
@@ -171,3 +169,4 @@ text.value {
         height: 100%;
     }
 }
+
