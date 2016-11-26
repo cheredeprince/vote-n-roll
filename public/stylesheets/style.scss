@@ -21,17 +21,6 @@ body {
     stroke: none;
 }
 
-body {
-    /*ne pas center */
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-
-/*svg {
-    width: 100%;
-    height: 100%;
-    display: block;
-}*/
-
 .toolTip {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     position: absolute;
@@ -73,11 +62,11 @@ text.value {
     stroke: rgba(0, 0, 0, 1);
 }
 
-.title{
+.scr-chart figcaption{
     font-size: 1.2em;
 }
 
-.title::first-letter{
+.scr-chart figcaption::first-letter{
     text-transform: uppercase;
 }
 
@@ -134,26 +123,26 @@ text.value {
 
 
 .btn {
-  background: #37948b;
-  background-image: -webkit-linear-gradient(top, #37948b, #2a877e);
-  background-image: -moz-linear-gradient(top, #37948b, #2a877e);
-  background-image: -ms-linear-gradient(top, #37948b, #2a877e);
-  background-image: -o-linear-gradient(top, #37948b, #2a877e);
-  background-image: linear-gradient(to bottom, #37948b, #2a877e);
-  -webkit-border-radius: 28;
-  -moz-border-radius: 28;
-  border-radius: 28px;
-  font-family: Arial;
-  color: #ffffff;
-  font-size: 20px;
-  padding: 10px 20px 10px 20px;
-  text-decoration: none;
+    background: #37948b;
+    background-image: -webkit-linear-gradient(top, #37948b, #2a877e);
+    background-image: -moz-linear-gradient(top, #37948b, #2a877e);
+    background-image: -ms-linear-gradient(top, #37948b, #2a877e);
+    background-image: -o-linear-gradient(top, #37948b, #2a877e);
+    background-image: linear-gradient(to bottom, #37948b, #2a877e);
+    -webkit-border-radius: 28;
+    -moz-border-radius: 28;
+    border-radius: 28px;
+    font-family: Arial;
+    color: #ffffff;
+    font-size: 20px;
+    padding: 10px 20px 10px 20px;
+    text-decoration: none;
 }
 
 .btn:hover {
-  background: #45b5a8;
-  text-decoration: none;
-  color: #ffffff;
+    background: #45b5a8;
+    text-decoration: none;
+    color: #ffffff;
 }
 
 .scr-chart{
@@ -163,22 +152,22 @@ text.value {
 
 
 @media (max-width: $medium) {
-.video-wrapper {
-    float: none;
-    clear: both;
-    width: 100%;
-    position: relative;
-    padding-bottom: 56.25%;
-    padding-top: 25px;
-    height: 0;
-}
+    .video-wrapper {
+        float: none;
+        clear: both;
+        width: 100%;
+        position: relative;
+        padding-bottom: 56.25%;
+        padding-top: 25px;
+        height: 0;
+    }
 
 
-.video-wrapper iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
+    .video-wrapper iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
 }

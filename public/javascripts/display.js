@@ -58,8 +58,11 @@ var display = (function(){
       .attr("class", "label")
       .attr("y",barHeight/2)
       .attr("dy", ".35em") //vertical align middle
-      .text(function(d){ 
-        return d.label;
+      .text(function(d){
+        if(mainWidth < breakPoint)
+          return shortName(d.label);
+        else
+          return d.label;
       })
       .attr('x',imageSize + marginLegend)
 
@@ -207,7 +210,7 @@ var display = (function(){
       .attr("y", legendH/2)
       .attr("dy", ".35em")
       .style("text-anchor", "end")
-      .text(function(d) { return d; });
+      .text(function(d) { return shortName(d); });
     
   }
 
@@ -475,7 +478,12 @@ var display = (function(){
     });
   }
 
+  var shortName = function(name){
+    var words = name.split(' ');
+    var firstName = words.splice(0,1);
 
+    return firstName[0][0]+'. '+words.join(' ');
+  }
   
   return {
     "changeSize" : changeSize,

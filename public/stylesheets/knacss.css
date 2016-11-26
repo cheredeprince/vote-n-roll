@@ -1896,15 +1896,6 @@ body {
 .node {
   stroke: none; }
 
-body {
-  /*ne pas center */
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
-
-/*svg {
-    width: 100%;
-    height: 100%;
-    display: block;
-}*/
 .toolTip {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   position: absolute;
@@ -1941,10 +1932,10 @@ text.value {
 .axis .tick {
   stroke: black; }
 
-.title {
+.scr-chart figcaption {
   font-size: 1.2em; }
 
-.title::first-letter {
+.scr-chart figcaption::first-letter {
   text-transform: uppercase; }
 
 /* vote*/
