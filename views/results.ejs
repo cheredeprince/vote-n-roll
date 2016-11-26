@@ -1,33 +1,49 @@
 <%-include partials/header%>
 
-<div class="page">
-    <%if(message){%>
-        <p class="message"><%=message%></p>
-    <%}%>
-    
-    <h1>Les Résultats des élections</h1>
+<%if(message){%>
+    <p class="message"><%=message%></p>
+<%}%>
 
-    <% include partials/total %>
-    
-    
+<h1>Les Résultats des élections</h1>
 
-    <% scrutins.forEach(function(scrutin){ %>%>
-        <% include partials/scrutin %>
-    <%})%>
-    
-    <!-- <script src="https://d3js.org/d3.v4.min.js"></script> -->
-    <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js?2.5.0"></script>
-    <script src="/javascripts/display.js"></script>
+<% include partials/total %>
 
-    <script>
+
+
+<% scrutins.forEach(function(scrutin){ %>%>
+    <% include partials/scrutin %>
+<%})%>
+
+<!-- <script src="https://d3js.org/d3.v4.min.js"></script> -->
+<script type="text/javascript" src="http://mbostock.github.com/d3/d3.js?2.5.0"></script>
+<script src="/javascripts/display.js"></script>
+
+<script>
+
+ var render = function(){
+
+     var i,
+         charts = document.getElementsByClassName('scr-chart');
+
+     for(i=0 ;i<charts.length;i++){
+         var svg =charts[i].getElementsByTagName("svg")[0];
+         if(svg)
+             svg.parentNode.removeChild(svg);         
+     };
+     display.changeSize();
+
      var totalScore =  <%- JSON.stringify(total) %>;
-     displayScore(totalScore,"total","rang des candidats par scrutin");
+     display.score(totalScore,"total","rang des candidats par scrutin");
      
      
      <% scrutins.forEach(function(scrutin){%>
-         <%-scrutin.display%>(<%- JSON.stringify(scrutin.data)%>,<%-JSON.stringify(scrutin.label)%>,<%-JSON.stringify(scrutin.chartTitle)%>);
+     display.<%-scrutin.display%>(<%- JSON.stringify(scrutin.data)%>,<%-JSON.stringify(scrutin.label)%>);
      <%})%>
-    </script>
-</div>
+ };
+ 
+ window.addEventListener('resize',render);
+ render();
+</script>
+
 
 <%-include partials/footer%>

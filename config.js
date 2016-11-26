@@ -48,7 +48,7 @@ config.scrutins = {
     "getRes" : "getMaj1Res",
     "mkRes"  : "maj1Sct",
     "getData": "hist",
-    "display": "displayHist",
+    "display": "hist",
     "chartTitle" : "nombre de voix par candidat",
     "presentation" : ""
   },
@@ -57,7 +57,7 @@ config.scrutins = {
     "getRes" : "getMaj2Res",
     "mkRes"  : "maj2Sct",
     "getData": "majData",
-    "display": "displayMajority",
+    "display": "maj",
     "chartTitle" : "répartition des voix après le premier tour",
     "presentation" : ""
   },
@@ -66,7 +66,7 @@ config.scrutins = {
     "getRes" : "getMajnRes",
     "mkRes"  : "majnSct",
     "getData": "majData",
-    "display": "displayMajority",
+    "display": "maj",
     "chartTitle" : "répartition des voix, après chaque tour",
     "presentation": ""
   },
@@ -75,7 +75,7 @@ config.scrutins = {
     "getRes" : "get",
     "mkRes"  : "bordasSct",
     "getData": "hist",
-    "display": "displayHist",
+    "display": "hist",
     "chartTitle" : "score par candidat",
     "presentation" : ""
   },
@@ -84,7 +84,7 @@ config.scrutins = {
     "getRes" : "get",
     "mkRes"  : "condorcetSct",
     "getData": "hist",
-    "display": "displayHist",
+    "display": "hist",
     "chartTitle" : "nombre de duels remportés par candidat",
     "presentation" : ""
   }

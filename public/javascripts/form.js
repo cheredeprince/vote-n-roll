@@ -1,5 +1,5 @@
 
-window.onload = function(){
+//window.onload = function(){
   var cards = document.getElementsByClassName("card");
   var stack = [];
   
@@ -37,18 +37,4 @@ window.onload = function(){
     cards[i].getElementsByTagName('select')[0].value = "";
   };
   
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//}
