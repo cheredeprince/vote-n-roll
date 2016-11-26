@@ -50,7 +50,7 @@ config.scrutins = {
     "getData": "hist",
     "display": "hist",
     "chartTitle" : "nombre de voix par candidat",
-    "presentation" : ""
+    "presentation" : "Le scrutin majoritaire à un tour consiste à compter pour chaque candidat le nombre de vote où il est classé le premier. On appelle ces votes, les voix du candidat, et le candidat élu est celui, qui en a le plus."
   },
   "maj2": {
     "name"   : "scrutin majoritaire à 2 tours",
@@ -59,7 +59,7 @@ config.scrutins = {
     "getData": "majData",
     "display": "maj",
     "chartTitle" : "répartition des voix après le premier tour",
-    "presentation" : ""
+    "presentation" : "Le scrutin majoritaire à deux tours consiste à sélectionner les deux candidats avec le plus de voix, c'est le premier tour. Un vote pour un candidat perdant est redistribué à un des deux gagnant, si celui-ci est préféré à l'autre par le vote. Après avoir recompté les voix des gagnants du premier tour, on élit celui qui a le plus de voix au deuxième tour."
   },
   "majn": {
     "name"   : "scrutin par éliminations",
@@ -68,7 +68,7 @@ config.scrutins = {
     "getData": "majData",
     "display": "maj",
     "chartTitle" : "répartition des voix, après chaque tour",
-    "presentation": ""
+    "presentation": "Le scrutin par élimination consiste éliminer un candidat à chaque tour. À chaque tour, on élimine le candidat ayant le moins de voix, et on redistribue ses voix aux autres candidats, suivant la méthode exposée pour le vote à deux tours. Le candidat qui gagne au dernier tour est élu."
   },
   "bordas" : {
     "name"   : "scrutin par scores (Bordas)",
@@ -77,7 +77,7 @@ config.scrutins = {
     "getData": "hist",
     "display": "hist",
     "chartTitle" : "score par candidat",
-    "presentation" : ""
+    "presentation" : "Le scrutin par scores de Bordas consiste à attribuer des points à chaque candidats suivant son classement dans chaque vote. Ainsi pour chaque vote, le candidat classé dernier reçoit un point, le deuxième deux point, etc. On compte le nombre de points par candidat et le candidat élu est celui avec le plus grand score."
   },
   "condorcet" : {
     "name"   : "scrutin par duels (Condorcet)",
@@ -86,7 +86,7 @@ config.scrutins = {
     "getData": "hist",
     "display": "hist",
     "chartTitle" : "nombre de duels remportés par candidat",
-    "presentation" : ""
+    "presentation" : "Le scrutin par duels de Condorcet consiste à compter le nombre victoire que remporte un candidat en duel avec chacun de ses concurrents. Un candidat gagne un duel contre un deuxième s'il a plus de vote qui le place au dessus du deuxième. Si un candidat gagne plus de duel, que tous les autres, il est élu. Sinon il faut utiliser une autre méthode pour les départager, qui n'est pas encore en place ici."
   }
 }
 
