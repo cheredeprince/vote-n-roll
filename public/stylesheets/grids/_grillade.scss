@@ -10,9 +10,6 @@ $iefix: 0.01px;
 @media (min-width: ($tiny + 1)) {
     [class*=" grid-"],
     [class^="grid-"] {
-        display: -webkit-flex;
-        -webkit-flex-direction: row;
-        -webkit-flex-wrap: wrap;
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;

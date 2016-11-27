@@ -6,6 +6,9 @@ var express = require('express'),
     Data      = require('../lib/data');
 var router = express.Router();
 
+
+
+
 /* GET les resultats. */
 router.get('/', function(req, res, next) {
   //s'il y a un message à afficher
@@ -13,7 +16,10 @@ router.get('/', function(req, res, next) {
       results = Votes.getResults(),
       info = { "title" : "Les résultats",
                "message" : message,
-               "scrutins": []
+               "scrutins": [],
+               "nbVotes": Votes.getNbVotes(),
+               "resultPage": true,
+               "messageType" : "info"
              };
 
     _.forEach(Config.scrutins,function(scrutin,label){
@@ -27,7 +33,6 @@ router.get('/', function(req, res, next) {
       });
     });
 
-  console.log(info.scrutins)
   
   var totalScore = _.map(results,function(scrRes,label){
     var r = _.clone(scrRes.ranked);

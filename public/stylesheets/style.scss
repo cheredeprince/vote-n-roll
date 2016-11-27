@@ -12,8 +12,15 @@ h2:first-letter{
     text-transform: uppercase;
 }
 
+nav .selected a{
+    color: red;
+} 
 
 
+.info{
+    background-color: green;
+    color: white;
+}
 
 .link {
     fill: none;

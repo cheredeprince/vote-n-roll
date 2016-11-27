@@ -55,6 +55,10 @@ exports.getResults = function(){
   return _.cloneDeep(results)
 }
 
+exports.getNbVotes = function(){
+  return nbVotes;
+}
+
 /*------------------- Results -------------------*/
 
 /* Les résultats de chaque scrutin sont stockés 

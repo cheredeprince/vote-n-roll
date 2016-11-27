@@ -6,8 +6,10 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "autoprefixer": "^6.5.3",
     "body-parser": "~1.15.2",
     "cookie-parser": "~1.4.3",
+    "cssnano": "^3.8.1",
     "debug": "~2.2.0",
     "ejs": "~2.5.2",
     "express": "~4.14.0",
@@ -15,6 +17,7 @@
     "morgan": "~1.7.0",
     "nedb": "^1.8.0",
     "node-sass-middleware": "0.9.8",
+    "postcss-middleware": "^1.1.2",
     "serve-favicon": "~2.3.0"
   },
   "devDependencies": {
@@ -22,5 +25,3 @@
     "tern-node-express": "^0.4.0"
   }
 }
-
-

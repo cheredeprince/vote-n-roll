@@ -1,11 +1,10 @@
 <%-include partials/header%>
 
 <%if(message){%>
-    <p class="message"><%=message%></p>
+    <p class="message <%=messageType%>"><%=message%></p>
 <%}%>
 
-<h1>Les Résultats des élections</h1>
-
+<p>Voici les résultats des <strong><%=nbVotes%></strong> votes pour la primaire de droite.</p>
 <% include partials/total %>
 
 

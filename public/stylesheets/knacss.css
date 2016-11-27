@@ -1892,6 +1892,13 @@ body {
 h2:first-letter {
   text-transform: uppercase; }
 
+nav .selected a {
+  color: red; }
+
+.info {
+  background-color: green;
+  color: white; }
+
 .link {
   fill: none;
   opacity: .3; }
@@ -2022,5 +2029,3 @@ text.value {
     left: 0;
     width: 100%;
     height: 100%; } }
-
-/*# sourceMappingURL=knacss.css.map */
