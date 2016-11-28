@@ -43,10 +43,10 @@ router.get('/', function(req, res, next) {
     return r;
   });
 
-
-
   info.total = totalScore;
 
+  info.colors = Candidats.getColorsByCandName();
+  
   res.render('results', info);
 });
 

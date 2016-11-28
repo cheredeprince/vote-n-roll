@@ -29,8 +29,11 @@
          if(svg)
              svg.parentNode.removeChild(svg);         
      };
-     display.changeSize();
 
+     display.changeSize(); display.setColors(<%-JSON.stringify(colors)%>);
+
+
+     
      var totalScore =  <%- JSON.stringify(total) %>;
      display.score(totalScore,"total");
      

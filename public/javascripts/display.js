@@ -4,7 +4,12 @@ var display = (function(){
       main = doc.getElementById('main'),
       mainWidth = main.clientWidth,
       margin = {top:30,left:20,bottom:30,right:20},
-      breakPoint = 600;
+      breakPoint = 600,
+      color;
+
+  var setColors = function(colors){
+    color = colors;
+  }
   
   var changeSize = function(){
 
@@ -91,7 +96,7 @@ var display = (function(){
       .attr("width", function(d){
         return scale(d.value);
       })
-      .attr("fill",function(c){ return c.color;});
+      .attr("fill",function(c){ return color[c.label];});
 
     bar.append("text")
       .attr("class", "value")
@@ -134,9 +139,6 @@ var display = (function(){
 
     var y = d3.scale.linear()
         .range([height, 0]);
-
-    var color = d3.scale.ordinal()
-        .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
 
     var xAxis = d3.svg.axis()
         .scale(x0)
@@ -183,7 +185,7 @@ var display = (function(){
     bar.append("rect")
       .attr("width", x1.rangeBand())
       .attr("height", function(d) { return height - y(d.value); })
-      .style("fill", function(d) { return color(d.name); })
+      .style("fill", function(d) { return color[d.name]; })
     
     bar.append("text")
       .attr("class","value")
@@ -203,7 +205,7 @@ var display = (function(){
       .attr("x", width - legendH +4)
       .attr("width", legendH)
       .attr("height", legendH)
-      .style("fill", color);
+      .style("fill", function(v){ return color[v];});
     
     legend.append("text")
       .attr("x", width - legendH)
@@ -281,7 +283,7 @@ var display = (function(){
           n.links.forEach(function(l) {
             l.outOffset = lCumValue;
             lCumValue += l.value;
-            l.color = n.color;
+            l.color = color[n.nodeName];
           });
         }
         // incoming
@@ -374,7 +376,7 @@ var display = (function(){
         })
         .attr('width', x.rangeBand())
         .attr('height', function(n) { return y(n.nodeValue) })
-        .attr('fill',function(n){ return n.color })
+        .attr('fill',function(n){ return color[n.nodeName] })
       
       nodes
         .append("svg:image")
@@ -487,6 +489,7 @@ var display = (function(){
   
   return {
     "changeSize" : changeSize,
+    "setColors"  : setColors,
     "hist" : displayHist,
     "score": displayScore,
     "maj"  : displayMajority
