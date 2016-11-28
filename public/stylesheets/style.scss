@@ -12,10 +12,14 @@ h2:first-letter{
     text-transform: uppercase;
 }
 
-nav .selected a{
-    color: red;
-} 
+nav li a{
+    text-decoration : none;
+    border-bottom: 1px solid black;
+}
 
+nav .selected a{
+    border-bottom-color: #e6843f;
+}
 
 .info{
     background-color: green;

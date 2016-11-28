@@ -4,9 +4,6 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var postcssMiddleware = require('postcss-middleware');
-var autoprefixer = require('autoprefixer');
-var cssnano = require('cssnano');
 
 var index = require('./routes/index');
 var vote  = require('./routes/vote');
@@ -29,26 +26,6 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(require('node-sass-middleware')({
-  src: path.join(__dirname, 'public/stylesheets'),
-  dest: path.join(__dirname, 'public/stylesheets'),
-  response: false
-  //  debug : true
-}));
-
-app.use(postcssMiddleware({
-  plugins: [
-    /* Plugins */
-    autoprefixer({
-      browsers: ['last 2 versions']
-    }),
-    cssnano()
-  ],
-
-  src: function(req) {
-    return path.join(path.join(__dirname, 'public/stylesheets/*.css'), req.url);
-  }
-}));
 
 app.use(express.static(path.join(__dirname, 'public')));
 

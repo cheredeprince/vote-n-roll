@@ -7,7 +7,12 @@ var router  = express.Router();
 
 var Votes     = require('../models/votes.js'),
     Candidats = require('../models/candidats.js');
-    
+
+router.use(function(req,res,next){
+  res.locals.pageName = "vote";
+  next();
+})
+
 /* GET formulaire de vote */
 router.get('/', function(req, res, next) {
   var candLabel = Candidats.labels(),
