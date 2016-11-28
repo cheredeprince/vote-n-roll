@@ -20,7 +20,7 @@ gulp.task('css', function () {
 
 // Tâche "minify" = minification CSS (destination -> destination)
 gulp.task('minify', function () {
-  return gulp.src(destination + '/public/stylesheets/*.css')
+  return gulp.src(destination + '/public/stylesheets/knacss.css')
     .pipe(plugins.csso())
     .pipe(plugins.rename({
       suffix: '.min'
