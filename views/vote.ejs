@@ -1,6 +1,9 @@
 <%-include partials/header%>
 
-    <h1>Faites votre vote</h1>
+<h1>Faites votre vote</h1>
+<%if(message){%>
+    <p class="message <%=messageType%>"><%=message%></p>
+<%}%>
     <p>Sélectionne tous les candidats par ordre de préférence, en cliquant dessus, puis soumets ton vote.</p>
 
     <form action="/vote/ajout" method="post" class="txtcenter">

@@ -46,7 +46,7 @@ var add = function(labelList,next){
                   })
               })
   }else
-    return next(true);
+    return next("invalid");
 };
 
 // fonctions get pour les résultats

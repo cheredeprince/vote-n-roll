@@ -35,7 +35,6 @@ router.get('/', function(req, res, next) {
         "presentation": scrutin.presentation
       });
     });
-
   
   var totalScore = _.map(results,function(scrRes,label){
     var r = _.clone(scrRes.ranked);
@@ -44,17 +43,10 @@ router.get('/', function(req, res, next) {
     return r;
   });
 
-  var totalScoreTest = _.map(Candidats.labels(),function(label){
-    var c = _.reduce(results,function(res,scrRes,scrName){
-      res[Config.scrutins[scrName].name] = scrRes.ranked[label];
-      return res;
-    },{});
-    c.category = Candidats.getNameOf(label);
-    return c;
-  })  
+
 
   info.total = totalScore;
-  info.totalTest = totalScoreTest;
+
   res.render('results', info);
 });
 

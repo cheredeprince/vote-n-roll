@@ -33,10 +33,6 @@
 
      var totalScore =  <%- JSON.stringify(total) %>;
      display.score(totalScore,"total");
-
-     var totalScoreTest =  <%- JSON.stringify(totalTest) %>;
-     display.score(totalScoreTest,"total-test");
-     
      
      <% scrutins.forEach(function(scrutin){%>
      display.<%-scrutin.display%>(<%- JSON.stringify(scrutin.data)%>,<%-JSON.stringify(scrutin.label)%>);

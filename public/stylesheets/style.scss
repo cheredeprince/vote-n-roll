@@ -26,6 +26,11 @@ nav .selected a{
     color: white;
 }
 
+.error{
+    background-color: red;
+    color: white;
+}
+
 .link {
     fill: none;
     opacity: .3;
@@ -40,7 +45,6 @@ nav .selected a{
 }
 
 .toolTip {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     position: absolute;
     display: none;
     width: auto;

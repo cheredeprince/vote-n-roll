@@ -2615,6 +2615,11 @@ nav .selected a {
   background-color: green;
 }
 
+.error {
+  color: white;
+  background-color: red;
+}
+
 .link {
   opacity: .3;
   fill: none;
@@ -2630,7 +2635,6 @@ nav .selected a {
 
 .toolTip {
   font: 12px sans-serif;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   position: absolute;
   display: none;
   width: auto;
