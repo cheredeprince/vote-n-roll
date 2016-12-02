@@ -4,7 +4,10 @@ var Datastore = require('nedb'),
 
 var Candidats = require('./candidats'),
     Config    = require('../config'),
-    Scrutin   = require('../lib/scrutin');
+    Scrutin   = require('../lib/scrutin'),
+    Ballot    = require('../lib/ballot');
+
+
 
 var nbVotes   = 0;
 /*
@@ -16,37 +19,29 @@ var nbVotes   = 0;
 
 // incrémente le nombre de vote d'une certaine liste de préférence de label
 var add = function(labelList,next){
-  var candidatsLabels = Candidats.labels(),
-      interLabels = _.intersection(labelList,candidatsLabels),
-      voteLabel;
 
-  //si tous les labels existent et qu'aucun n'est en double
-  //et la liste contient tous les candidats.
-  if(interLabels.length == candidatsLabels.length
-     && labelList.length == candidatsLabels.length){
-    //construction du label de vote et inscription du nouveau vote.
-    voteLabel = labelList.join('-');
+  var ballot = new  Ballot.PrefBallot(Candidats.labels());
+  ballot.set(labelList, function(err){
+    if(err)
+      return next("invalid");
 
-    db.update({vote:voteLabel},
-              {$inc: {number: 1}},
-              {upsert: true}, function(err,nb,upsert){
+    var data = ballot.get();
+    
+    db.update({"label": data.label},
+              {$inc: { "number": 1 },
+	       $addToSet: { "prefList": { $each: data.prefList } },
+	       $set: { "voteMode": data.voteMode }
+	      },
+              {upsert: true},
+	      function(err,nb,upsert){
                 if(err) return next(err);
-                //si on a fait une insertion, on précise la liste des labels
-                // des candidats
-                if(upsert)
-                  db.update({vote:voteLabel},{$set:{list:labelList}},function(err){
-                    if(err) return next(err);
-                    updateResults(labelList,function(){
-                      next(null,upsert);
-                    })
-                  })
-                else
-                  updateResults(labelList,function(){
-                    next(null);
-                  })
-              })
-  }else
-    return next("invalid");
+		
+                updateResults(labelList,function(){
+                  next(null);
+		})
+	      })
+    
+  })
 };
 
 // fonctions get pour les résultats
@@ -75,11 +70,17 @@ var results = {};
 
 var initResults = function(){
 
-  db.find({},{number:1,list:1},function(err,votes){
+  db.find({},{},function(err,votes){
     if(err) throw err;
-    
     _.forEach(Config.scrutins,function(scrutin,label){
-      results[label] = Scrutin[scrutin.mkRes](votes);
+      
+      results[label] = Scrutin[scrutin.mkRes](
+	_.map(votes, function(v){
+	  return {"list"  : v.prefList,
+		  "number": v.number,
+		  "label": v.label}
+	})
+      );
     });
     
 //    display();
@@ -108,7 +109,13 @@ var updateResults = function(labelList,next){
     if(err) throw err;
 
     _.forEach(Config.scrutins,function(scrutin,label){
-      results[label] = Scrutin[scrutin.mkRes](votes);
+      results[label] = Scrutin[scrutin.mkRes](
+	_.map(votes, function(v){
+	  return {"list"  : v.prefList,
+		  "number": v.number,
+		  "label": v.label}
+	})
+      );
     })
 
     display();

@@ -1,0 +1,10 @@
+<p><strong>Sélectionne</strong> tous les candidats par ordre de préférence, en cliquant dessus, puis soumets ton vote.</p>
+
+<form action="/vote/ajout" method="post" class="txtcenter">
+    <div class="grid-4-small-2 has-gutter-xl">
+        <%for(var i =0;i<nameLab.length;i++){%>
+            <% include card %>
+        <%}%>
+    </div>
+    <input type="submit" class="btn" value="Voter">
+</form>

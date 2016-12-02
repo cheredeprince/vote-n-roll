@@ -1,5 +1,17 @@
 var config = {};
 
+
+/* chaque mode de vote possède :
+ * - un nom de ficher .ejs dans views/partials/
+ * - un nom court
+*/
+
+config.voteModes = {
+  "pref" : {
+    "ejs" : "vote-pref",
+    "name": "pref"
+  }
+}
 /*chaque candidat possède:
  * - un label, qui le définit de manière courte
  * - un nom, qui le définit de manière précise et conventionelle
@@ -44,43 +56,48 @@ config.candidats = {
 
 config.scrutins = {
   "maj1": {
-    "name"   : "scrutin majoritaire à 1 tour",
-    "getRes" : "getMaj1Res",
-    "mkRes"  : "maj1Sct",
-    "getData": "hist",
-    "display": "hist",
+    "name"     : "scrutin majoritaire à 1 tour",
+    "voteName" : "pref",
+    "getRes"   : "getMaj1Res",
+    "mkRes"    : "maj1Sct",
+    "getData"  : "hist",
+    "display"  : "hist",
     "chartTitle" : "nombre de voix par candidat",
     "presentation" : "Dans le scrutin majoritaire à un tour, seul le candidat au premier rang de chaque vote reçoit une voix. Le candidat obtenant le plus de voix remporte l'élection."
   },
   "maj2": {
-    "name"   : "scrutin majoritaire à 2 tours",
-    "getRes" : "getMaj2Res",
-    "mkRes"  : "maj2Sct",
-    "getData": "majData",
-    "display": "maj",
+    "name"     : "scrutin majoritaire à 2 tours",
+    "voteName" : "pref",
+    "getRes"   : "getMaj2Res",
+    "mkRes"    : "maj2Sct",
+    "getData"  : "majData",
+    "display"  : "maj",
     "chartTitle" : "répartition des voix après le premier tour",
     "presentation" : "Le scrutin majoritaire à deux tours sélectionne les deux candidats avec le plus de voix au cours d'un premier tour, puis à les remettre en compétition au cours d'un second tour, qui se déroule de façon similaire en ignorant sur les votes les candidats éliminés au premier tour pour désigner le vainqueur."
   },
   "majn": {
-    "name"   : "scrutin par éliminations",
-    "getRes" : "getMajnRes",
-    "mkRes"  : "majnSct",
-    "getData": "majData",
-    "display": "maj",
+    "name"     : "scrutin par éliminations",
+    "voteName" : "pref",
+    "getRes"   : "getMajnRes",
+    "mkRes"    : "majnSct",
+    "getData"  : "majData",
+    "display"  : "maj",
     "chartTitle" : "répartition des voix, après chaque tour",
     "presentation": "Le scrutin par éliminations se déroule en plusieurs tours, chacun éliminant le candidat obtenant le moins de voix jusqu'à ce qu'il n'en reste plus qu'un."
   },
   "bordas" : {
     "name"   : "scrutin par scores (Bordas)",
+    "voteName" : "pref",
     "getRes" : "get",
     "mkRes"  : "bordasSct",
     "getData": "hist",
     "display": "hist",
     "chartTitle" : "score par candidat",
-    "presentation" : "Dans le scrutin par scores de Bordas, le classement des candidats sur chaque vote leur attribue nombre de point : le dernier sur le vote reçoit un point, celui qui le précède deux points, etc. Le vainqueur est celui obtenant le plus de points."
+    "presentation" : "Dans le scrutin par scores de Bordas, le classement des candidats sur chaque vote leur attribue un nombre de point : le dernier sur le vote reçoit un point, celui qui le précède deux points, etc. Le vainqueur est celui obtenant le plus de points."
   },
   "condorcet" : {
     "name"   : "scrutin par duels (Condorcet)",
+    "voteName" : "pref",
     "getRes" : "get",
     "mkRes"  : "condorcetSct",
     "getData": "hist",

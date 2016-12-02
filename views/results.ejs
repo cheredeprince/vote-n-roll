@@ -1,7 +1,7 @@
 <%-include partials/header%>
 
 <%if(message){%>
-    <p class="message <%=messageType%>"><%=message%></p>
+    <p class="message <%=messageType%>"><%-message%></p>
 <%}%>
 
 <p>Voici les résultats des <strong><%=nbVotes%></strong> votes pour la primaire de droite.</p>

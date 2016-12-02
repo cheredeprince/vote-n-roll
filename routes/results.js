@@ -4,6 +4,7 @@ var express = require('express'),
     Candidats = require('../models/candidats'),
     Config   = require('../config'),
     Data      = require('../lib/data');
+var escapeHTML = require('escape-html');
 var router = express.Router();
 
 
@@ -15,8 +16,9 @@ router.use(function(req,res,next){
 /* GET les resultats. */
 router.get('/', function(req, res, next) {
   //s'il y a un message à afficher
-  var message = req.query.message,
-      results = Votes.getResults(),
+  var message = (req.query.message)?escapeHTML(req.query.message): undefined;
+  
+  var results = Votes.getResults(),
       info = { "title" : "Les résultats",
                "message" : message,
                "scrutins": [],

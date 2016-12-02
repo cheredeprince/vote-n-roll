@@ -4,9 +4,11 @@
 var express = require('express'),
     _       = require('lodash');
 var router  = express.Router();
+var escapeHTML = require('escape-html');
 
 var Votes     = require('../models/votes.js'),
-    Candidats = require('../models/candidats.js');
+    Candidats = require('../models/candidats.js'),
+    Config    = require('../config.js');
 
 router.use(function(req,res,next){
   res.locals.pageName = "vote";
@@ -23,15 +25,15 @@ router.get('/', function(req, res, next) {
                                    "image" : Candidats.getImageOf(label)
                                  };
                         });
-  var message = req.query.message;
 
-  console.log("ok"+message)
-  
+  var message = (req.query.message)?escapeHTML(req.query.message): undefined;
+
   res.render('vote',{
     "title"   : 'Votes',
     "nameLab" : _.shuffle(nameLab),
     "message" : message,
-    "messageType": "error"
+    "messageType": "error",
+    "ejs": _.map(Config.voteModes,(m)=>m.ejs)
   });
 });
 
