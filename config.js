@@ -21,11 +21,11 @@ config.voteModes = {
     // attention les couleurs doivent être aussi présentes dans style.scss
     // pour obtenir la palette original :
     // http://paletton.com/palette.php?uid=74d1r0kllllaFw0g0qFqFg0w0aF
-    "colorMention"  : {  'veryg': '#116611',
-			 'good' : '#55aa55',
-			 'quitg': '#d4c26a',
-			 'passa': '#605292',
-			 'insuf': '#aa3939',
+    "colorMention"  : {  'veryg': '#16A94A',
+			 'good' : '#A6C432',
+			 'quitg': '#8B8B8B',
+			 'passa': '#CC8722',
+			 'insuf': '#db4342',
 //			 'excel': '#116611',
 //			 'rejec': '#aa3939'
 		      },
