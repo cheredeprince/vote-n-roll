@@ -1,0 +1,20 @@
+<div class="card-jug txtcenter">    
+    <div class="card-head w75 center">
+        
+        <img src="<%=nameLab[i].image%>" alt="<%=nameLab[i].name%>" class="card-photo"/>
+    </div>
+    <div class="card-name">
+        <h3><%=nameLab[i].name%></h3>
+    </div>
+    <ul class="select-box">
+
+	<%ballot.sortedMention.forEach(function(mention){%>
+	    <li class="option <%=mention%>">
+		<input type="radio" id="<%=nameLab[i].label%>-<%=mention%>"
+		       value="<%=mention%>" name="jug-<%=nameLab[i].label%>"/>
+		<label for="<%=nameLab[i].label%>-<%=mention%>"><%=ballot.nameMention[mention]%></label>
+	    </li> 
+	<%})%>
+
+    </ul>
+</div>

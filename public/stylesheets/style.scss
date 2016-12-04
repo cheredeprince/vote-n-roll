@@ -75,13 +75,14 @@ text.value {
     shape-rendering: crispEdges;
 }
 
-.axis  .tick,.axisHorizontal .tick {
+.axis .tick line,.axisHorizontal .tick line{
     stroke-width: 1;
     stroke: rgba(0, 0, 0, 0.4);
 }
 
-.axis  .tick {
-    stroke: rgba(0, 0, 0, 1);
+.majority-axis line{
+    stroke: black;
+    stroke-width:2;
 }
 
 .scr-chart figcaption{
@@ -98,29 +99,16 @@ text.value {
     cursor:pointer;
 }
 
-.card-photo{
-    -webkit-filter: grayscale(1);
-    -moz-filter: grayscale(1);
-    -ms-filter: grayscale(1);
-    -o-filter: grayscale(1);
+.card .card-photo{
     filter: grayscale(1);
-    -webkit-transition : filter 1s;
     transition : filter 1s;
 }
 
 .choosen-card .card-photo{
-    -webkit-filter: none;
-    -moz-filter: none;
-    -ms-filter: none;
-    -o-filter: none;
     filter: none;
 } 
 
 .card:hover .card-photo{
-    -webkit-filter: none;
-    -moz-filter: none;
-    -ms-filter: none;
-    -o-filter: none;
     filter: none;
 }
 
@@ -138,15 +126,65 @@ text.value {
     color:white;
 }
 
+.card-jug{
+
+    display: flex;
+    flex-direction:column;
+    margin-top:1em;
+
+    .card-head{
+	flex:1;
+    }
+    .card-name{
+	flex:2;
+    }
+    h3{
+	margin-bottom:0;
+    }
+}
+
+.card-jug .select-box{
+    list-style: none;
+    padding:0;
+    li{
+	display: block;
+	margin:0;
+    }
+    li label{
+	display:inline-block;
+	width: 100%;
+	line-height:2;
+	margin:0;
+	font-weight:bold;
+    }
+    
+    input{
+	display:none;
+    }
+}
+
+$color-mention: (
+  veryg #116611,
+  good  #55aa55,
+  quitg #d4c26a,
+  passa #605292,
+  insuf #aa3939
+);
+
+@each $value in $color-mention {
+
+    .#{nth($value, 1)} label{
+	border: 1px solid nth($value, 2);
+}
+    .#{nth($value, 1)} input:checked ~label {
+			   background-color: nth($value, 2);
+   }
+}
+
+
 .btn {
     background: #37948b;
-    background-image: -webkit-linear-gradient(top, #37948b, #2a877e);
-    background-image: -moz-linear-gradient(top, #37948b, #2a877e);
-    background-image: -ms-linear-gradient(top, #37948b, #2a877e);
-    background-image: -o-linear-gradient(top, #37948b, #2a877e);
     background-image: linear-gradient(to bottom, #37948b, #2a877e);
-    -webkit-border-radius: 28;
-    -moz-border-radius: 28;
     border-radius: 28px;
     font-family: Arial;
     color: #ffffff;

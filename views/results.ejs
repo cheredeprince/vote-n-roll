@@ -4,42 +4,53 @@
     <p class="message <%=messageType%>"><%-message%></p>
 <%}%>
 
-<p>Voici les résultats des <strong><%=nbVotes%></strong> votes pour la primaire de droite.</p>
+
 <% include partials/total %>
 
 
+<% voteModesInfo.forEach(function(voteInfo){ %>
 
-<% scrutins.forEach(function(scrutin){ %>%>
-    <% include partials/scrutin %>
-<%})%>
-
-<!-- <script src="https://d3js.org/d3.v4.min.js"></script> -->
-<script type="text/javascript" src="http://mbostock.github.com/d3/d3.js?2.5.0"></script>
-<script src="/javascripts/display.js"></script>
-
-<script>
-
- var render = function(){
-
-     var i,
-         charts = document.getElementsByClassName('scr-chart');
-
-     for(i=0 ;i<charts.length;i++){
-         var svg =charts[i].getElementsByTagName("svg")[0];
-         if(svg)
-             svg.parentNode.removeChild(svg);         
-     };
-
-     display.changeSize(); display.setColors(<%-JSON.stringify(colors)%>);
+    <p>Voici les résultats des <strong><%=voteInfo.nbVotes%></strong> votes du <%=voteInfo.name%> pour la primaire de droite.</p>
+    <%var scrutins = voteInfo.scrutins;
+    scrutins.forEach(function(scrutin){ %>%>
+	<% include partials/scrutin %>
+    <%})
+    })%>
 
 
-     
-     var totalScore =  <%- JSON.stringify(total) %>;
-     display.score(totalScore,"total");
-     
-     <% scrutins.forEach(function(scrutin){%>
-     display.<%-scrutin.display%>(<%- JSON.stringify(scrutin.data)%>,<%-JSON.stringify(scrutin.label)%>);
-     <%})%>
+    <script src="https://d3js.org/d3.v3.min.js"></script> 
+    <!-- <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js?2.5.0"></script> -->
+    <script src="/javascripts/display.js"></script>
+
+    <script>
+
+     var render = function(){
+
+	 var i,
+             charts = document.getElementsByClassName('scr-chart');
+
+	 for(i=0 ;i<charts.length;i++){
+             var svg =charts[i].getElementsByTagName("svg")[0];
+             if(svg)
+		 svg.parentNode.removeChild(svg);         
+	 };
+
+	 display.changeSize();
+	 display.setColors(<%-JSON.stringify(colors)%>);
+	 display.setConf("voteMode",<%-JSON.stringify(voteModeConf)%>);
+	 display.setConf("cand",<%-JSON.stringify(candConf)%>);
+	 
+	 var totalScore =  <%- JSON.stringify(total) %>;
+	 display.score(totalScore,"total");
+
+	 <% voteModesInfo.forEach(function(voteInfo){ %>
+	 
+	 
+	     <%var scrutins = voteInfo.scrutins;
+	     scrutins.forEach(function(scrutin){%>
+	 display.<%-scrutin.display%>(<%- JSON.stringify(scrutin.data)%>,<%-JSON.stringify(scrutin.label)%>);
+	     <%})
+	     })%>
  };
  
  window.addEventListener('resize',render);

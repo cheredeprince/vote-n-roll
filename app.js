@@ -11,6 +11,27 @@ var results  = require('./routes/results');
 var credit  = require('./routes/credit');
 
 var config = require('./config');
+var voteBox = require('./models/voteBox');
+var resultsBoard = require('./models/resultsBoard');
+
+//Models initialisation
+voteBox.init(Object.keys(config.voteModes));
+
+var res = {},
+    k = 0,
+    voteModes = Object.keys(config.voteModes);
+
+voteModes.forEach(function(modeVote){
+  voteBox.getFrom(modeVote,function(err, ballots){
+
+    k++;
+    res[modeVote] = ballots;
+    if(k==voteModes.length)
+      resultsBoard.init(config.scrutins,res);    
+  });
+})
+
+
 
 var app = express();
 

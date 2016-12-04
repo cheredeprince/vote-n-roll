@@ -74,13 +74,7 @@ var initResults = function(){
     if(err) throw err;
     _.forEach(Config.scrutins,function(scrutin,label){
       
-      results[label] = Scrutin[scrutin.mkRes](
-	_.map(votes, function(v){
-	  return {"list"  : v.prefList,
-		  "number": v.number,
-		  "label": v.label}
-	})
-      );
+      results[label] = Scrutin[scrutin.mkRes](votes);
     });
     
 //    display();
@@ -109,13 +103,7 @@ var updateResults = function(labelList,next){
     if(err) throw err;
 
     _.forEach(Config.scrutins,function(scrutin,label){
-      results[label] = Scrutin[scrutin.mkRes](
-	_.map(votes, function(v){
-	  return {"list"  : v.prefList,
-		  "number": v.number,
-		  "label": v.label}
-	})
-      );
+      results[label] = Scrutin[scrutin.mkRes](votes);
     })
 
     display();

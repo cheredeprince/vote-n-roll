@@ -4,6 +4,9 @@ var express = require('express'),
     Candidats = require('../models/candidats'),
     Config   = require('../config'),
     Data      = require('../lib/data');
+var VoteBox = require('../models/voteBox');
+var ResultsBoard = require('../models/resultsBoard');
+
 var escapeHTML = require('escape-html');
 var router = express.Router();
 
@@ -18,36 +21,49 @@ router.get('/', function(req, res, next) {
   //s'il y a un message à afficher
   var message = (req.query.message)?escapeHTML(req.query.message): undefined;
   
-  var results = Votes.getResults(),
-      info = { "title" : "Les résultats",
-               "message" : message,
-               "scrutins": [],
-               "nbVotes": Votes.getNbVotes(),
-               "resultPage": true,
-               "messageType" : "info"
-             };
+   var tmpVMI = {};
 
-    _.forEach(Config.scrutins,function(scrutin,label){
-      info.scrutins.push({
-        "label" : label,
-        "name"  : scrutin.name,
-        "data"  : Data[scrutin.getData](results[label]),
-        "display": scrutin.display,
-        "chartTitle" : scrutin.chartTitle,
-        "presentation": scrutin.presentation
-      });
+  _.forEach(Config.scrutins,function(scrutin,label){
+
+    if(! tmpVMI[scrutin.voteMode])
+      tmpVMI[scrutin.voteMode] = {
+	"scrutins": [],
+	"name": Config.voteModes[scrutin.voteMode].name,
+	"nbVotes": VoteBox.getCountOf(scrutin.voteMode)
+      };
+      
+    
+    tmpVMI[scrutin.voteMode].scrutins.push({
+      "label" : label,
+      "name"  : scrutin.name,
+      "data"  : Data[scrutin.getData](ResultsBoard.get(label)),
+      "display": scrutin.display,
+      "chartTitle" : scrutin.chartTitle,
+      "presentation": scrutin.presentation
+    })
+    
     });
+
+  console.log(tmpVMI);
   
-  var totalScore = _.map(results,function(scrRes,label){
-    var r = _.clone(scrRes.ranked);
+  var totalScore = _.map(Config.scrutins,function(scrutin,label){
+    var r = ResultsBoard.get(label).ranked;
     r = _.mapKeys(r,(v,lab) => Candidats.getNameOf(lab))
-    r.category = Config.scrutins[label].name;
+    r.category = scrutin.name;
     return r;
   });
 
-  info.total = totalScore;
 
-  info.colors = Candidats.getColorsByCandName();
+   var info = { "title" : "Les résultats",
+		"message" : message,
+		"colors" :  Candidats.getColorsByCandName(),
+               "voteModesInfo": _.map(tmpVMI,(VM) =>VM),
+	       "voteModeConf" : _.cloneDeep(Config.voteModes),
+	       "candConf": _.cloneDeep(Config.candidats),
+               "resultPage": true,
+		"messageType" : "info",
+		"total": totalScore
+              };
   
   res.render('results', info);
 });

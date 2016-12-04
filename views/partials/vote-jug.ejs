@@ -1,0 +1,12 @@
+<h2><a href="#jug" name="jug">Le jugement majoritaire</a></h2>
+<%if(message && messageTo == "jug"){%>
+    <p class="message <%=messageType%>"><%-message%></p>
+<%}%>
+<form action="/vote/ajout/jug" method="post" class="txtcenter">
+    <div class="grid-4-small-2 has-gutter-xl">
+        <%for(var i =0;i<nameLab.length;i++){%>
+            <% include card-jug %>
+        <%}%>
+    </div>
+    <input type="submit" class="btn" value="Soumettre votre votre par jugement">
+</form>

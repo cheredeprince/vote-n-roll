@@ -3,15 +3,44 @@ var config = {};
 
 /* chaque mode de vote possède :
  * - un nom de ficher .ejs dans views/partials/
- * - un nom court
 */
+
+/* les attributs des bulletins de vote sont
+ * décrit dans le ./lib/ballot.js
+ */
 
 config.voteModes = {
   "pref" : {
-    "ejs" : "vote-pref",
-    "name": "pref"
+    "name": "vote alternatif",
+    "ejs" : "vote-pref"
+  },
+  "jug" : {
+    "name": "jugement majoritaire",
+    "ejs" : "vote-jug",
+    "sortedMention" : ['insuf','passa','quitg','good','veryg'],
+    // attention les couleurs doivent être aussi présentes dans style.scss
+    // pour obtenir la palette original :
+    // http://paletton.com/palette.php?uid=74d1r0kllllaFw0g0qFqFg0w0aF
+    "colorMention"  : {  'veryg': '#116611',
+			 'good' : '#55aa55',
+			 'quitg': '#d4c26a',
+			 'passa': '#605292',
+			 'insuf': '#aa3939',
+//			 'excel': '#116611',
+//			 'rejec': '#aa3939'
+		      },
+    "nameMention" : {	 'veryg': 'Très bon',
+			 'good' : 'Bon',
+			 'quitg': 'Assez bon',
+			 'passa': 'Passable',
+			 'insuf': 'Insuffisant',
+//			 'excel': 'Excellent',
+//			 'rejec': 'À rejeter'
+		    }
   }
 }
+
+
 /*chaque candidat possède:
  * - un label, qui le définit de manière courte
  * - un nom, qui le définit de manière précise et conventionelle
@@ -57,7 +86,7 @@ config.candidats = {
 config.scrutins = {
   "maj1": {
     "name"     : "scrutin majoritaire à 1 tour",
-    "voteName" : "pref",
+    "voteMode" : "pref",
     "getRes"   : "getMaj1Res",
     "mkRes"    : "maj1Sct",
     "getData"  : "hist",
@@ -67,7 +96,7 @@ config.scrutins = {
   },
   "maj2": {
     "name"     : "scrutin majoritaire à 2 tours",
-    "voteName" : "pref",
+    "voteMode" : "pref",
     "getRes"   : "getMaj2Res",
     "mkRes"    : "maj2Sct",
     "getData"  : "majData",
@@ -77,7 +106,7 @@ config.scrutins = {
   },
   "majn": {
     "name"     : "scrutin par éliminations",
-    "voteName" : "pref",
+    "voteMode" : "pref",
     "getRes"   : "getMajnRes",
     "mkRes"    : "majnSct",
     "getData"  : "majData",
@@ -87,7 +116,7 @@ config.scrutins = {
   },
   "bordas" : {
     "name"   : "scrutin par scores (Bordas)",
-    "voteName" : "pref",
+    "voteMode" : "pref",
     "getRes" : "get",
     "mkRes"  : "bordasSct",
     "getData": "hist",
@@ -97,13 +126,23 @@ config.scrutins = {
   },
   "condorcet" : {
     "name"   : "scrutin par duels (Condorcet)",
-    "voteName" : "pref",
+    "voteMode" : "pref",
     "getRes" : "get",
     "mkRes"  : "condorcetSct",
     "getData": "hist",
     "display": "hist",
     "chartTitle" : "nombre de duels remportés par candidat",
     "presentation" : "Le scrutin par duels de Condorcet comptabilise les victoires dans des duels entre chaque couple de candidats, duels en scrutin majoritaire à un tour en ne considérant dans les votes que les duelistes. Si un candidat remporte plus de duels que les autres, il est désigné vainqueur, sinon il faut les départager autrement."
+  },
+  "jugMaj" : {
+    "name"   : "Jugement majoritaire",
+    "voteMode" : "jug",
+    "getRes" : "get",
+    "mkRes"  : "jugMaj",
+    "getData": "cumulHist",
+    "display": "stackedBar",
+    "chartTitle" : "proportions des mentions par candidat",
+    "presentation" : ""
   }
 }
 

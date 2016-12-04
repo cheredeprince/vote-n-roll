@@ -1,13 +1,14 @@
 <%-include partials/header%>
 
-<h1>Faites votre vote</h1>
-<%if(message){%>
-    <p class="message <%=messageType%>"><%-message%></p>
-<%}%>
+<% ballotsList.forEach(function(ballot){ %>
+    <%if( ballot.ejs == "vote-pref"){%>
+	<%-include('partials/vote-pref',{"ballot":ballot})%>
+    <%}%>
 
-<%if(ejs.indexOf('vote-pref') != -1){%>
-    <%-include partials/vote-pref%>
-<%}%>
+    <%if( ballot.ejs == "vote-jug"){%>
+	<%-include( 'partials/vote-jug',{"ballot":ballot})%>
+    <%}%>
+<%})%>
 
 <script src="/javascripts/form.js"></script>
 <%-include partials/footer%>
