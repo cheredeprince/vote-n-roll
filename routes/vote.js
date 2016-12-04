@@ -6,8 +6,7 @@ var express = require('express'),
 var router  = express.Router();
 var escapeHTML = require('escape-html');
 
-var Votes     = require('../models/votes.js'),
-    Candidats = require('../models/candidats.js'),
+var Candidats = require('../models/candidats.js'),
     Config    = require('../config.js'),
     VoteBox   = require('../models/voteBox');
 var resultsBoard = require('../models/resultsBoard')

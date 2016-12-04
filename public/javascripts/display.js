@@ -306,7 +306,7 @@ var display = (function(){
     var yAxis = d3.svg.axis()
 	.scale(y)
 	.orient("left")
-	.ticks(4)
+	.ticks(1)
 	.tickSize(-width+legendSpace+tickSpace +2*gapratio*x.rangeBand())
         .tickFormat(d3.format(".0%"));
 

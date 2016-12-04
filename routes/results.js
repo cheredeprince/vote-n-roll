@@ -1,6 +1,5 @@
 var express = require('express'),
     _       = require('lodash'),
-    Votes   = require('../models/votes'),
     Candidats = require('../models/candidats'),
     Config   = require('../config'),
     Data      = require('../lib/data');
