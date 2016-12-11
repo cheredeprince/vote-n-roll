@@ -185,7 +185,6 @@ $btn-color:  #37948b;
 
 .btn {
     background: $btn-color;
-    background-image: linear-gradient(to bottom, #37948b, #2a877e);
     border-radius: 28px;
     font-family: Arial;
     color: #ffffff;
@@ -195,7 +194,7 @@ $btn-color:  #37948b;
 }
 
 .btn:hover {
-    background: #45b5a8;
+    background: lighten($btn-color,10%);
     text-decoration: none;
     color: #ffffff;
 }
@@ -205,9 +204,18 @@ $btn-color:  #37948b;
 }
 
 @keyframes glowing {
-  0% {  background: $btn-color; box-shadow: 0 0 3px $btn-color; }
-  50% {    background: lighter($btn-color,5%); box-shadow: 0 0 15px lighter($btn-color,5%); }
-  100% {   background: $btn-color; box-shadow: 0 0 3px $color-btn; }
+    0% {
+	background: $btn-color;
+	box-shadow: 0 0 3px $btn-color;
+    }
+    50% {
+	background: lighten($btn-color,10%); 
+	box-shadow: 0 0 15px $btn-color;
+    }
+    100% {
+	background: $btn-color;
+	box-shadow: 0 0 3px $btn-color;
+    }
 }
 
 .scr-chart{

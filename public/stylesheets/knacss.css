@@ -2820,14 +2820,12 @@ text.value {
   color: #fff;
   border-radius: 28px;
   background: #37948b;
-  background-image: -webkit-linear-gradient(top, #37948b, #2a877e);
-  background-image: linear-gradient(to bottom, #37948b, #2a877e);
 }
 
 .btn:hover {
   text-decoration: none;
   color: #fff;
-  background: #45b5a8;
+  background: #45b9ae;
 }
 
 .glowing-btn {
@@ -2837,35 +2835,35 @@ text.value {
 
 @-webkit-keyframes glowing {
   0% {
-    background-color: #37948b;
-    box-shadow: 0 0 3px #004a7f;
+    background: #37948b;
+    box-shadow: 0 0 3px #37948b;
   }
 
   50% {
-    background-color: lighter(#37948b, 5%);
-    box-shadow: 0 0 10px #0094ff;
+    background: #45b9ae;
+    box-shadow: 0 0 15px #37948b;
   }
 
   100% {
-    background-color: #37948b;
-    box-shadow: 0 0 3px #004a7f;
+    background: #37948b;
+    box-shadow: 0 0 3px #37948b;
   }
 }
 
 @keyframes glowing {
   0% {
-    background-color: #37948b;
-    box-shadow: 0 0 3px #004a7f;
+    background: #37948b;
+    box-shadow: 0 0 3px #37948b;
   }
 
   50% {
-    background-color: lighter(#37948b, 5%);
-    box-shadow: 0 0 10px #0094ff;
+    background: #45b9ae;
+    box-shadow: 0 0 15px #37948b;
   }
 
   100% {
-    background-color: #37948b;
-    box-shadow: 0 0 3px #004a7f;
+    background: #37948b;
+    box-shadow: 0 0 3px #37948b;
   }
 }
 

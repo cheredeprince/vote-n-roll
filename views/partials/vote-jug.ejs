@@ -2,6 +2,7 @@
 <%if(message && messageTo == "jug"){%>
     <p class="message <%=messageType%>"><%-message%></p>
 <%}%>
+<p><strong>Assigne</strong> une mention à chacun des candidats, et soumets ton vote.</p>
 <form action="/vote/ajout/jug" method="post" class="txtcenter">
     <div class="grid-4-small-2 has-gutter-xl">
         <%for(var i =0;i<nameLab.length;i++){%>
