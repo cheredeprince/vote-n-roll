@@ -2830,6 +2830,45 @@ text.value {
   background: #45b5a8;
 }
 
+.glowing-btn {
+  -webkit-animation: glowing 1500ms infinite;
+          animation: glowing 1500ms infinite;
+}
+
+@-webkit-keyframes glowing {
+  0% {
+    background-color: #37948b;
+    box-shadow: 0 0 3px #004a7f;
+  }
+
+  50% {
+    background-color: lighter(#37948b, 5%);
+    box-shadow: 0 0 10px #0094ff;
+  }
+
+  100% {
+    background-color: #37948b;
+    box-shadow: 0 0 3px #004a7f;
+  }
+}
+
+@keyframes glowing {
+  0% {
+    background-color: #37948b;
+    box-shadow: 0 0 3px #004a7f;
+  }
+
+  50% {
+    background-color: lighter(#37948b, 5%);
+    box-shadow: 0 0 10px #0094ff;
+  }
+
+  100% {
+    background-color: #37948b;
+    box-shadow: 0 0 3px #004a7f;
+  }
+}
+
 .scr-chart {
   margin: 2em 0;
 }
