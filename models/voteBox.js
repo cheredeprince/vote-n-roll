@@ -1,25 +1,25 @@
 var Datastore = require('nedb');
 var _         = require('lodash');
 
-var Candidats = require('./candidats');
 var ballots = require('../lib/ballot');
 
 var dbs = {};
 var Ballots = {};
-var ballotsNbPerMode = {};
+var ballotsCount = {};
 
 /*
   * Les votes sont enregistrés ainsi des boîtes :
+  * - une election
   * - un mode de vote (qui doit être correct)
   * - la donnée du bulletin de vote
   * s'occupe de ne pas dédoubler les votes indentique,
   * grâce à un compteur : number
 */
 
-exports.addTo = function(voteMode,data,next){
+exports.addTo = function(election,voteMode,data,candLabel,next){
 
   // on initialise le bulletin à avec la liste de candidats
-  var ballot = new Ballots[voteMode](Candidats.labels());
+  var ballot = new Ballots[voteMode](candLabel,election);
   // on inscrit les données du vote sur le bulletin
   ballot.set(data, function(err){
     if(err) return next("invalid");
@@ -27,21 +27,21 @@ exports.addTo = function(voteMode,data,next){
     var ballotData = ballot.get();
 
     // on teste s'il le vote est le premier
-    dbs[voteMode].find({"label":ballotData.label},{_id:1},function(err,docs){
+    dbs[election][voteMode].find({"label":ballotData.label},{_id:1},function(err,docs){
       if(err) return next(err);
 
       if(docs.length == 0){
 	ballotData.number = 1;
-	dbs[voteMode].insert(ballotData,function(err,doc){
+	dbs[election][voteMode].insert(ballotData,function(err,doc){
 	  if(err) return next(err);
 	  next(null,doc);
-	  ballotsNbPerMode[voteMode]++;
+	  ballotsCount[election][voteMode]++;
 	})
       }else{
-	dbs[voteMode].update({"label":ballotData.label},{$inc:{"number":1}},function(err,nb){
+	dbs[election][voteMode].update({"label":ballotData.label},{$inc:{"number":1}},function(err,nb){
 	  if(err) return next(err);
 	  next(null,ballotData);
-	  ballotsNbPerMode[voteMode]++;
+	  ballotsCount[election][voteMode]++;
 	})
       }
     })
@@ -53,25 +53,33 @@ exports.addTo = function(voteMode,data,next){
   * d'une boîte 
   *
 */
-exports.getFrom = function(voteMode,next){
-  dbs[voteMode].find({},{_id:0},function(err,docs){
+
+exports.getFrom = function(election,voteMode,next){
+  dbs[election][voteMode].find({},{_id:0},function(err,docs){
     if(err) return next(err);
     next(null,docs);
   })
 };
 
-exports.getCountOf = function(voteMode){
-    console.log(ballotsNbPerMode);
-  return ballotsNbPerMode[voteMode];
+exports.getCountOf = function(election,voteMode){
+  return ballotsCount[election][voteMode];
 }
 
-exports.init = function(voteModesList){
-  voteModesList.forEach(function(voteMode){
-    dbs[voteMode] = new Datastore({ filename: __dirname+'/../db/votes-'+voteMode,autoload:true});
-    Ballots[voteMode] = ballots[voteMode];
-    dbs[voteMode].count({},function(err,count){
-      if(err) throw err;
-      ballotsNbPerMode[voteMode] = count;
+exports.init = function(voteModePerElection){
+  for(election in voteModePerElection){
+    dbs[election] = {};
+    ballotsCount[election] = {};
+    console.log(voteModePerElection[election])
+    voteModePerElection[election].forEach(function(voteMode){
+      dbs[election][voteMode] = new Datastore({ filename: __dirname+'/../db/votes-'+election+'-'+voteMode, autoload:true});
+
+      Ballots[voteMode] = ballots[voteMode];
+
+      dbs[election][voteMode].count({},function(err,count){
+	if(err) throw err;
+	ballotsCount[election][voteMode] = count;
+      })
+      
     })
-  })
+  }
 };

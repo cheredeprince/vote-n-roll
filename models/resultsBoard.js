@@ -3,38 +3,45 @@ var _ = require('lodash');
 var Scrutin = require('../lib/scrutin');
 
 var resultsBoards = {};
-var scrutinsPerVoteMode = {};
+var scrutinsPerElection = {};
 var mkResPerscrutin = {};
 
 
-exports.update = function(voteMode,ballots){
-  scrutinsPerVoteMode[voteMode].forEach(function(scrutin){    
-    resultsBoards[scrutin] = mkResPerscrutin[scrutin](ballots);
+exports.update = function(election,voteMode,ballots){
+  scrutinsPerElection[election][voteMode].forEach(function(scrutin){    
+    resultsBoards[election][scrutin] = mkResPerscrutin[scrutin](ballots);
   });
-
 }
 
-exports.get = function(scrutin){
-  return _.cloneDeep(resultsBoards[scrutin]);
+exports.get = function(election,scrutin){
+  return _.cloneDeep(resultsBoards[election][scrutin]);
 }
 
-exports.init = function(scrutins,ballotsPerMode){
+exports.init = function(electionsConf,scrutinsConf,ballotsPerElection){
 
-  for(label in scrutins){
-    if(scrutinsPerVoteMode[scrutins[label].voteMode])
-      scrutinsPerVoteMode[scrutins[label].voteMode].push(label);
-    else
-      scrutinsPerVoteMode[scrutins[label].voteMode] = [label];
-    
-    mkResPerscrutin[label] = Scrutin[scrutins[label].mkRes];
-  }
+  var allScrutins = _.uniq(_.flatMap(electionsConf,(c)=>c.scrutins));
 
-  for(voteMode in ballotsPerMode){
-    //si un mode de vote n'a pas de scrutin
-    if(!scrutinsPerVoteMode[voteMode])
-      scrutinsPerVoteMode[voteMode]= [];
-    
-    this.update(voteMode,ballotsPerMode[voteMode]);
+  scrutinsPerElection = _.reduce(electionsConf,function(res,election,id){
+    res[id] = _.reduce(election.scrutins,function(r,s){
+      if(r[scrutinsConf[s].voteMode])
+	r[scrutinsConf[s].voteMode].push(s);
+      else
+	r[scrutinsConf[s].voteMode] = [s];
+      return r;
+    },{})
+    return res;
+  },{})
+  
+
+  allScrutins.forEach(function(scrutin){
+    mkResPerscrutin[scrutin] = Scrutin[scrutinsConf[scrutin].mkRes];
+  })
+
+  for(election in ballotsPerElection){
+    resultsBoards[election] = {};
+    for(voteMode in ballotsPerElection[election]){    
+      this.update(election,voteMode,ballotsPerElection[election][voteMode]);
+    }
   }
   
 };

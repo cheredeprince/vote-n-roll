@@ -164,11 +164,11 @@ text.value {
 }
 
 $color-mention: (
-  veryg #116611,
-  good  #55aa55,
-  quitg #d4c26a,
-  passa #605292,
-  insuf #aa3939
+  veryg #16A94A,
+  good  #A6C432,
+  quitg #8B8B8B,
+  passa #CC8722,
+  insuf #DB4342
 );
 
 @each $value in $color-mention {

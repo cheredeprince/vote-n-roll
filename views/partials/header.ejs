@@ -12,8 +12,8 @@
             <h1><a href="/">Vote'n Roll</a></h1>
             <nav id="navigation" role="navigation">
 	        <ul class="pam">
-                    <li class="pam inbl <%=(pageName == "vote")?"selected":""%>"><a href="/vote">L'isoloir</a></li>
-                    <li class="pam inbl <%=(pageName == "results")?"selected":""%>"><a href="/resultats">Les résultats</a></li>
+                    <li class="pam inbl <%=(pageName == "vote")?"selected":""%>"><a href="/vote/<%=electionId%>">L'isoloir</a></li>
+                    <li class="pam inbl <%=(pageName == "results")?"selected":""%>"><a href="/resultats/<%=electionId%>">Les résultats</a></li>
 	        </ul>
             </nav>
         </header>

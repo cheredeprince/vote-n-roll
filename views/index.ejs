@@ -1,12 +1,14 @@
 <%-include partials/header%>
 <h2>Tester différents scrutins</h2>
-    <p>L'objectif de Vote'n Roll est de simuler de réelles élections, en comparant différentes méthodes pour choisir l'élu. L'élection proposée en ce moment est la primaire de droite.</p>
+<p>L'objectif de Vote'n Roll est de simuler de réelles élections, en comparant différentes méthodes pour choisir l'élu.</p>
 
-    <h2>Voter en classant les candidats</h2>
-    <p>Une fois dans l'isoloir, il vous sera demandé de trier les candidats par ordre de préférence, pour constituer votre vote.</p>
-    <p class="txtcenter">
-        <a class="btn" href="/vote">Accéder à l'isoloir</a>
-    </p>
+    <h2>Voter de diverses manières</h2>
+    <p>Une fois dans l'isoloir, il vous sera demandé de voter suivant différents modes de vote.</p>
+    <% elections.forEach(function(election){%>
+	<p class="txtcenter">
+            <a class="btn" href="/vote/<%=election.id%>">L'isoloir de <%=election.name%></a>
+	</p>
+    <%}) %>
 
     <h2>Pourquoi comparer ces scrutins ?</h2>
     <p>La construction de Vote'n Roll a été motivée par les vidéos suivantes, qui montrent combien l'influence du scrutin est forte sur les résultats du vote. Le maître d'Albert expose un exemple de vote, où chaque candidat peut remporter la victoire avec un scrutin.</p>

@@ -3,7 +3,7 @@ var config = {};
 
 /* chaque mode de vote possède :
  * - un nom de ficher .ejs dans views/partials/
-*/
+ */
 
 /* les attributs des bulletins de vote sont
  * décrit dans le ./lib/ballot.js
@@ -26,62 +26,149 @@ config.voteModes = {
 			 'quitg': '#8B8B8B',
 			 'passa': '#CC8722',
 			 'insuf': '#db4342',
-//			 'excel': '#116611',
-//			 'rejec': '#aa3939'
+			 //			 'excel': '#116611',
+			 //			 'rejec': '#aa3939'
 		      },
     "nameMention" : {	 'veryg': 'Très bon',
 			 'good' : 'Bon',
 			 'quitg': 'Assez bon',
 			 'passa': 'Passable',
 			 'insuf': 'Insuffisant',
-//			 'excel': 'Excellent',
-//			 'rejec': 'À rejeter'
+			 //			 'excel': 'Excellent',
+			 //			 'rejec': 'À rejeter'
 		    }
   }
 }
 
+config.elections = {
+  "primaire-gauche":{
+    "name" : "la primaire de gauche",
+    "description": "",
+    "scrutins" : ["maj1","maj2","majn","bordas","condorcet","jugMaj"],
+    "candidats" : {
+      "val" : {
+	"name"  : "Manuel Valls",
+	"image" : "http://www.lesechos.fr/medias/2016/12/08/2007993_primaire-de-la-gauche-mode-demploi-et-candidats-web-tete-0211547815701.jpg",
+	"color" : "#7b6888"
+      },
+      "mon" : {
+	"name"  : "Arnaud Montebourg",
+	"image" : "http://www.lesechos.fr/medias/2016/12/08/2007993_primaire-de-la-gauche-mode-demploi-et-candidats-web-tete-0211220049710.jpg",
+	"color" : "#ff8c00"
+      },
+      "ham" : {
+	"name"  : "Benoît Hamon",
+	"image" : "http://www.lesechos.fr/medias/2016/12/08/2007993_primaire-de-la-gauche-mode-demploi-et-candidats-web-tete-0211220052154.jpg",
+	"color" : "#6b486b"
+      },
+      "lie" : {
+	"name"  : "Marie-Noëlle Lienemann",
+	"image" : "http://www.lesechos.fr/medias/2016/12/08/2007993_primaire-de-la-gauche-mode-demploi-et-candidats-web-tete-0211357398763.jpg",
+	"color" : "#d0743c"
+      },
+      "fil" : {
+	"name"  : "Gérard Filoche",
+	"image" : "http://www.lesechos.fr/medias/2016/12/08/2007993_primaire-de-la-gauche-mode-demploi-et-candidats-web-tete-0211220052616.jpg",
+	"color" : "#98abc5"
+      },
+      "rug" :{
+	"name"  : "François de Rugy",
+	"image" : "http://www.lesechos.fr/medias/2016/12/08/2007993_primaire-de-la-gauche-mode-demploi-et-candidats-web-tete-0211220056216.jpg",
+	"color" : "#8a89a6"
+      },
+      "ben" : {
+	"name"  : "Jean-Luc Bennahmias",
+	"image" : "http://www.lesechos.fr/medias/2016/12/08/2007993_primaire-de-la-gauche-mode-demploi-et-candidats-web-tete-0211365405594.jpg",
+	"color" : "#a05d56"
+	
+      }
+    }
+  },
+    "primaire-droite" : {
+    "name": "la primaire de droite",
+    "description": "",
+    "scrutins" : ["maj1","maj2","majn","bordas","condorcet","jugMaj"],
+    "candidats": {
+      "sar": {
+	"name"  : "Nicolas Sarkozy",
+	"image" : "http://www.primaire2016.org/upload/default/57e39212451bf_N_Sarkozy.png",
+	"color" : "#98abc5"
+      },
+      "fil": {
+	"name" : "François Fillon",
+	"image": "http://www.primaire2016.org/upload/default/57e3923985498_F_Fillon.png",
+	"color": "#8a89a6"
+      },
+      "kos":{
+	"name" : "Nathalie Kosciusko-Morizet",
+	"image": "http://www.primaire2016.org/upload/default/57e39272ca678_N_KoscuiskoMorizet.png",
+	"color": "#7b6888"
+      },
+      "jup": {
+	"name"  : "Alain Juppé",
+	"image" : "http://www.primaire2016.org/upload/default/57e3929c13493_A_Juppe.png",
+	"color" : "#6b486b"
+      },
+      "cop":{
+	"name"  : "Jean-François Copé",
+	"image" : "http://www.primaire2016.org/upload/default/57e3930e8836b_JF_Cope.png",
+	"color" : "#a05d56"
+      },
+      "lem":{
+	"name"  : "Bruno Le Maire",
+	"image" : "http://www.primaire2016.org/upload/default/57e39369164cd_B_LeMaire.png",
+	"color" : "#d0743c"
+      },
+      "poi":{
+	"name"  : "Jean-Frédéric Poisson",
+	"image" : "http://www.primaire2016.org/upload/default/57e3939cd869c_JF_Poisson.png",
+	"color" : "#ff8c00"
+      }      
+    }
+  }
+}
 
 /*chaque candidat possède:
  * - un label, qui le définit de manière courte
  * - un nom, qui le définit de manière précise et conventionelle
  */
-config.candidats = {
-  "sar": {
-    "name"  : "Nicolas Sarkozy",
-    "image" : "http://www.primaire2016.org/upload/default/57e39212451bf_N_Sarkozy.png",
-    "color" : "#98abc5"
-  },
-  "fil": {
-    "name" : "François Fillon",
-    "image": "http://www.primaire2016.org/upload/default/57e3923985498_F_Fillon.png",
-    "color": "#8a89a6"
-  },
-  "kos":{
-    "name" : "Nathalie Kosciusko-Morizet",
-    "image": "http://www.primaire2016.org/upload/default/57e39272ca678_N_KoscuiskoMorizet.png",
-    "color": "#7b6888"
-  },
-  "jup": {
-    "name"  : "Alain Juppé",
-    "image" : "http://www.primaire2016.org/upload/default/57e3929c13493_A_Juppe.png",
-    "color" : "#6b486b"
-  },
-  "cop":{
-    "name"  : "Jean-François Copé",
-    "image" : "http://www.primaire2016.org/upload/default/57e3930e8836b_JF_Cope.png",
-    "color" : "#a05d56"
-  },
-  "lem":{
-    "name"  : "Bruno Le Maire",
-    "image" : "http://www.primaire2016.org/upload/default/57e39369164cd_B_LeMaire.png",
-    "color" : "#d0743c"
-  },
-  "poi":{
-    "name"  : "Jean-Frédéric Poisson",
-    "image" : "http://www.primaire2016.org/upload/default/57e3939cd869c_JF_Poisson.png",
-    "color" : "#ff8c00"
-  }
-};
+// config.candidats = {
+//   "sar": {
+//     "name"  : "Nicolas Sarkozy",
+//     "image" : "http://www.primaire2016.org/upload/default/57e39212451bf_N_Sarkozy.png",
+//     "color" : "#98abc5"
+//   },
+//   "fil": {
+//     "name" : "François Fillon",
+//     "image": "http://www.primaire2016.org/upload/default/57e3923985498_F_Fillon.png",
+//     "color": "#8a89a6"
+//   },
+//   "kos":{
+//     "name" : "Nathalie Kosciusko-Morizet",
+//     "image": "http://www.primaire2016.org/upload/default/57e39272ca678_N_KoscuiskoMorizet.png",
+//     "color": "#7b6888"
+//   },
+//   "jup": {
+//     "name"  : "Alain Juppé",
+//     "image" : "http://www.primaire2016.org/upload/default/57e3929c13493_A_Juppe.png",
+//     "color" : "#6b486b"
+//   },
+//   "cop":{
+//     "name"  : "Jean-François Copé",
+//     "image" : "http://www.primaire2016.org/upload/default/57e3930e8836b_JF_Cope.png",
+//     "color" : "#a05d56"
+//   },
+//   "lem":{
+//     "name"  : "Bruno Le Maire",
+//     "image" : "http://www.primaire2016.org/upload/default/57e39369164cd_B_LeMaire.png",
+//     "color" : "#d0743c"
+//   },
+//   "poi":{
+//     "name"  : "Jean-Frédéric Poisson",
+//     "image" : "http://www.primaire2016.org/upload/default/57e3939cd869c_JF_Poisson.png",
+//     "color" : "#ff8c00"
+//   }
+// };
 
 config.scrutins = {
   "maj1": {
@@ -142,7 +229,7 @@ config.scrutins = {
     "getData": "cumulHist",
     "display": "stackedBar",
     "chartTitle" : "proportions des mentions par candidat",
-    "presentation" : ""
+    "presentation" : "On regarde la proportion de chaque mention par candidat. On retient pour chaque candidat sa mention majoritaire, qui correspond à la mention minimale donnée par 50% des votants."
   }
 }
 

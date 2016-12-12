@@ -2773,43 +2773,43 @@ text.value {
 }
 
 .veryg label {
-  border: 1px solid #161;
+  border: 1px solid #16a94a;
 }
 
 .veryg input:checked ~ label {
-  background-color: #161;
+  background-color: #16a94a;
 }
 
 .good label {
-  border: 1px solid #5a5;
+  border: 1px solid #a6c432;
 }
 
 .good input:checked ~ label {
-  background-color: #5a5;
+  background-color: #a6c432;
 }
 
 .quitg label {
-  border: 1px solid #d4c26a;
+  border: 1px solid #8b8b8b;
 }
 
 .quitg input:checked ~ label {
-  background-color: #d4c26a;
+  background-color: #8b8b8b;
 }
 
 .passa label {
-  border: 1px solid #605292;
+  border: 1px solid #cc8722;
 }
 
 .passa input:checked ~ label {
-  background-color: #605292;
+  background-color: #cc8722;
 }
 
 .insuf label {
-  border: 1px solid #aa3939;
+  border: 1px solid #db4342;
 }
 
 .insuf input:checked ~ label {
-  background-color: #aa3939;
+  background-color: #db4342;
 }
 
 .btn {

@@ -10,7 +10,7 @@
 
 <% voteModesInfo.forEach(function(voteInfo){ %>
 
-    <p>Voici les résultats des <strong><%=voteInfo.nbVotes%></strong> votes du <%=voteInfo.name%> pour la primaire de droite.</p>
+    <p>Voici les résultats des <strong><%=voteInfo.nbVotes%></strong> votes du <%=voteInfo.name%> pour <%=electionName%>.</p>
     <%var scrutins = voteInfo.scrutins;
     scrutins.forEach(function(scrutin){ %>%>
 	<% include partials/scrutin %>

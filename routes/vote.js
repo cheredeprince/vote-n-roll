@@ -6,6 +6,7 @@ var express = require('express'),
 var router  = express.Router();
 var escapeHTML = require('escape-html');
 
+var Election = require('../models/elections');
 var Candidats = require('../models/candidats.js'),
     Config    = require('../config.js'),
     VoteBox   = require('../models/voteBox');
@@ -17,13 +18,23 @@ router.use(function(req,res,next){
 })
 
 /* GET formulaire de vote */
-router.get('/', function(req, res, next) {
-  var candLabel = Candidats.labels(),
+router.get('/:electionId', function(req, res, next) {
+
+  var electionId = req.params.electionId; 
+  var E = Election.get(electionId);
+
+  if(typeof E == 'undefined'){
+    res.status(404);
+    res.send('404: Page not Found');
+    return;
+  }
+
+  var candLabel = E.Candidats.labels(),
       nameLab   = _.map(candLabel,
                         function(label){
                           return { "label" : label,
-                                   "name"  : Candidats.getNameOf(label),
-                                   "image" : Candidats.getImageOf(label)
+                                   "name"  : E.Candidats.getNameOf(label),
+                                   "image" : E.Candidats.getImageOf(label)
                                  };
                         });
 
@@ -47,7 +58,8 @@ router.get('/', function(req, res, next) {
    var ballotsList = _.map(_.cloneDeep(Config.voteModes),(config) => config)
   
   res.render('vote',{
-    "title"   : 'Votes',
+    "title"   : 'Votes pour ' + E.name,
+    "electionId" : electionId,
     "nameLab" : _.shuffle(nameLab),
     "message" : message,
     "messageType": messageType,
@@ -57,9 +69,20 @@ router.get('/', function(req, res, next) {
 });
 
 /* POST vote pref */
-router.post('/ajout/pref', function(req, res, next){
+router.post('/ajout/pref/:electionId', function(req, res, next){
 
-  var candLabel = Candidats.labels();
+  
+  var electionId = req.params.electionId;
+  var E = Election.get(electionId);
+
+  if(typeof E == 'undefined'){
+    res.status(404);
+    res.send('404: Page not Found');
+    return;
+  }
+
+  
+  var candLabel = E.Candidats.labels();
   var params    = req.body,
       labelList = [];
 
@@ -68,29 +91,39 @@ router.post('/ajout/pref', function(req, res, next){
     labelList[i] = candLabel[index];
   }
 
-  VoteBox.addTo("pref",labelList,function(err){
+  VoteBox.addTo(E.id,"pref",labelList,candLabel,function(err){
     if(err){
       if(err =="invalid"){
 	var message = encodeURIComponent("Vote invalide, pensez à classer TOUS les candidats");
-	res.redirect('/vote?error='+message+'&to=pref#pref');
+	res.redirect('/vote/'+electionId+'?error='+message+'&to=pref#pref');
       }else
 	return next(err);
     }else{
       //mise à jour des résultats
-      VoteBox.getFrom("pref",function(err,ballots){
-	resultsBoard.update("pref",ballots);
+      VoteBox.getFrom(E.id,"pref",function(err,ballots){
+	resultsBoard.update(E.id,"pref",ballots);
       })
       
       var message = encodeURIComponent("Votre vote pour le vote alternatif a été pris en compte. Vous pouvez voter pour le jugement majoritaire à présent.");
-      res.redirect('/vote?message='+message+'&to=jug#jug');
+      res.redirect('/vote/'+electionId+'?message='+message+'&to=jug#jug');
     }
   });
 })
 
 /* POST vote jug */
-router.post('/ajout/jug', function(req, res, next){
+router.post('/ajout/jug/:electionId', function(req, res, next){
 
-  var candLabel = Candidats.labels();
+  var electionId = req.params.electionId;
+  var E = Election.get(electionId);
+
+  if(typeof E == 'undefined'){
+    res.status(404);
+    res.send('404: Page not Found');
+    return;
+  }
+
+  
+  var candLabel = E.Candidats.labels();
   var params    = req.body,
       jugPerCand= {};
 
@@ -99,22 +132,22 @@ router.post('/ajout/jug', function(req, res, next){
   }
 
   
-  VoteBox.addTo("jug",jugPerCand,function(err){
+  VoteBox.addTo(E.id,"jug",jugPerCand,candLabel,function(err){
     if(err){
       if(err =="invalid"){
 	var message = encodeURIComponent("Vote invalide, pensez à juger TOUS les candidats");
-	res.redirect('/vote?error='+message+'&to=jug#jug');
+	res.redirect('/vote/'+electionId+'?error='+message+'&to=jug#jug');
       }else
 	return next(err);
     }else{
       //mise à jour des résultats
-      VoteBox.getFrom("jug",function(err,ballots){
-	resultsBoard.update("jug",ballots);
+      VoteBox.getFrom(E.id,"jug",function(err,ballots){
+	resultsBoard.update(E.id,"jug",ballots);
 
       })
       
       var message = encodeURIComponent("Votre vote par jugement a été pris en compte.");
-      res.redirect('/resultats?message='+message);
+      res.redirect('/resultats/'+electionId+'?message='+message);
       
     }
   });

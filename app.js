@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var _ = require("lodash");
 
 var index = require('./routes/index');
 var vote  = require('./routes/vote');
@@ -15,20 +16,30 @@ var voteBox = require('./models/voteBox');
 var resultsBoard = require('./models/resultsBoard');
 
 //Models initialisation
-voteBox.init(Object.keys(config.voteModes));
 
-var res = {},
-    k = 0,
-    voteModes = Object.keys(config.voteModes);
+var voteModePerElection = _.reduce(config.elections,function(res,election,id){
+  var voteMode = _.flatMap(election.scrutins,(s) => config.scrutins[s].voteMode);
+  res[id] = _.uniq(voteMode);
+  return res;
+},{});
 
-voteModes.forEach(function(modeVote){
-  voteBox.getFrom(modeVote,function(err, ballots){
+voteBox.init(voteModePerElection);
 
-    k++;
-    res[modeVote] = ballots;
-    if(k==voteModes.length)
-      resultsBoard.init(config.scrutins,res);    
-  });
+var length = _.sum(_.map(voteModePerElection,(a) => a.length));
+var k = 0;
+var res = {};
+
+_.forEach(config.elections,function(election,id){
+  res[id] = {};
+  voteModePerElection[id].forEach(function(modeVote){
+    voteBox.getFrom(id,modeVote,function(err, ballots){
+      
+      k++;
+      res[id][modeVote] = ballots;
+      if(k==length)
+	resultsBoard.init(_.cloneDeep(config.elections),_.cloneDeep(config.scrutins),res);    
+    });
+})
 })
 
 
