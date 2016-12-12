@@ -17,7 +17,6 @@ var ballotsCount = {};
 */
 
 exports.addTo = function(election,voteMode,data,candLabel,next){
-
   // on initialise le bulletin à avec la liste de candidats
   var ballot = new Ballots[voteMode](candLabel,election);
   // on inscrit les données du vote sur le bulletin
@@ -66,10 +65,10 @@ exports.getCountOf = function(election,voteMode){
 }
 
 exports.init = function(voteModePerElection){
-  for(election in voteModePerElection){
+  _.forEach(voteModePerElection,function(v,election){
     dbs[election] = {};
     ballotsCount[election] = {};
-    console.log(voteModePerElection[election])
+
     voteModePerElection[election].forEach(function(voteMode){
       dbs[election][voteMode] = new Datastore({ filename: __dirname+'/../db/votes-'+election+'-'+voteMode, autoload:true});
 
@@ -79,7 +78,7 @@ exports.init = function(voteModePerElection){
 	if(err) throw err;
 	ballotsCount[election][voteMode] = count;
       })
-      
+
     })
-  }
+  })
 };
