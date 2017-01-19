@@ -48,37 +48,38 @@ config.elections = {
     "candidats" : {
       "val" : {
 	"name"  : "Manuel Valls",
-	"image" : "http://www.lesechos.fr/medias/2016/12/08/2007993_primaire-de-la-gauche-mode-demploi-et-candidats-web-tete-0211547815701.jpg",
+	"image" : "http://www.lesprimairescitoyennes.fr/wp-content/uploads/2016/12/manuel_valls_portrait.png",
 	"color" : "#7b6888"
       },
       "mon" : {
 	"name"  : "Arnaud Montebourg",
-	"image" : "http://www.lesechos.fr/medias/2016/12/08/2007993_primaire-de-la-gauche-mode-demploi-et-candidats-web-tete-0211220049710.jpg",
+	"image" : "http://www.lesprimairescitoyennes.fr/wp-content/uploads/2016/12/MONTEBOURG-490x490.png",
 	"color" : "#ff8c00"
       },
       "ham" : {
 	"name"  : "Benoît Hamon",
-	"image" : "http://www.lesechos.fr/medias/2016/12/08/2007993_primaire-de-la-gauche-mode-demploi-et-candidats-web-tete-0211220052154.jpg",
+	"image" : "http://www.lesprimairescitoyennes.fr/wp-content/uploads/2016/10/hamon-490x490.png",
 	"color" : "#6b486b"
       },
-      "lie" : {
-	"name"  : "Marie-Noëlle Lienemann",
-	"image" : "http://www.lesechos.fr/medias/2016/12/08/2007993_primaire-de-la-gauche-mode-demploi-et-candidats-web-tete-0211357398763.jpg",
-	"color" : "#d0743c"
-      },
-      "fil" : {
-	"name"  : "Gérard Filoche",
-	"image" : "http://www.lesechos.fr/medias/2016/12/08/2007993_primaire-de-la-gauche-mode-demploi-et-candidats-web-tete-0211220052616.jpg",
+      "pin" : {
+	"name"  : "Silvia Pinel",
+	"image" : "http://www.lesprimairescitoyennes.fr/wp-content/uploads/2016/12/sylvia_pinel_portrait_def-490x490.png",
 	"color" : "#98abc5"
       },
       "rug" :{
 	"name"  : "François de Rugy",
-	"image" : "http://www.lesechos.fr/medias/2016/12/08/2007993_primaire-de-la-gauche-mode-demploi-et-candidats-web-tete-0211220056216.jpg",
+	"image" : "http://www.lesprimairescitoyennes.fr/wp-content/uploads/2016/12/DE_RUGY_2-490x490.png",
 	"color" : "#8a89a6"
       },
       "ben" : {
 	"name"  : "Jean-Luc Bennahmias",
-	"image" : "http://www.lesechos.fr/medias/2016/12/08/2007993_primaire-de-la-gauche-mode-demploi-et-candidats-web-tete-0211365405594.jpg",
+	"image" : "http://www.lesprimairescitoyennes.fr/wp-content/uploads/2016/12/jean_luc_bennahmias_portrait_ok-490x490.png",
+	"color" : "#a05d56"
+	
+      },
+      "pei" : {
+	"name"  : "Vincent Peillon",
+	"image" : "http://www.lesprimairescitoyennes.fr/wp-content/uploads/2016/12/PEILLON-490x490.png",
 	"color" : "#a05d56"
 	
       }
