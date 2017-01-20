@@ -60,9 +60,12 @@ router.get('/:electionId', function(req, res, next) {
     return r;
   });
 
+  var elections = Election.getAll();
+
   var info = { "title" : "Les résultats de "+E.name,
 	       "electionName" : E.name,
 	       "electionId": E.id,
+	       "elections" : elections,
 	       "message" : message,
 	       "colors" :  E.Candidats.getColorsByCandName(),
 	       "voteModesInfo": _.map(tmpVMI,(VM) =>VM),

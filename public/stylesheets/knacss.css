@@ -2601,6 +2601,10 @@ h2:first-letter {
   text-transform: uppercase;
 }
 
+nav ul:nth-child(2) {
+  padding-top: 0;
+}
+
 nav li a {
   text-decoration: none;
   border-bottom: 1px solid black;

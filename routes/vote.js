@@ -55,11 +55,13 @@ router.get('/:electionId', function(req, res, next) {
   }
 
   //liste des bulletins que l'on veut recueillir avec leurs paramètres
-   var ballotsList = _.map(_.cloneDeep(Config.voteModes),(config) => config)
+  var ballotsList = _.map(_.cloneDeep(Config.voteModes),(config) => config)
+  var elections = Election.getAll();
   
   res.render('vote',{
     "title"   : 'Votes pour ' + E.name,
     "electionId" : electionId,
+    "elections" : elections,
     "nameLab" : _.shuffle(nameLab),
     "message" : message,
     "messageType": messageType,

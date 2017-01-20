@@ -11,10 +11,24 @@
         <header id="header" role="banner" class="line pam txtcenter">
             <h1><a href="/">Vote'n Roll</a></h1>
             <nav id="navigation" role="navigation">
-	        <ul class="pam">
+	        <ul class="">
+		    <li class="pam inbl">
+			<%elections.forEach(function(e){
+			    if(e.id == electionId){%>
+			    <span><%=e.name%></span>
+			<%}})%> : </li>
                     <li class="pam inbl <%=(pageName == "vote")?"selected":""%>"><a href="/vote/<%=electionId%>">L'isoloir</a></li>
                     <li class="pam inbl <%=(pageName == "results")?"selected":""%>"><a href="/resultats/<%=electionId%>">Les résultats</a></li>
 	        </ul>
+		<%if(elections.length >1){%>
+		    <ul class="">
+			<li class="pam inbl">Les autres élections : </li>
+			<%elections.forEach(function(e){
+			    if(e.id != electionId){%>
+			    <li class="pam inbl"><a href="/vote/<%=e.id%>"><%=e.name%></a></li>
+			<%}})
+			}%>
+	            </ul>
             </nav>
         </header>
         <div role="main" class="w90 medium-w75 large-w50  center txtcenter " id="main">

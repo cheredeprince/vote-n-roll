@@ -187,7 +187,7 @@ config.scrutins = {
     "mkRes"  : "jugMaj",
     "getData": "cumulHist",
     "display": "stackedBar",
-    "chartTitle" : "proportions des mentions par candidat",
+    "chartTitle" : "proportion des mentions par candidat",
     "presentation" : "On regarde la proportion de chaque mention par candidat. On retient pour chaque candidat sa mention majoritaire, qui correspond à la mention minimale donnée par 50% des votants."
   }
 }
