@@ -1,5 +1,4 @@
-<%-include partials/header%>
-
+<%-include( 'partials/header',{"elections": elections, "electionId":electionId})%>
 <%if(message){%>
     <p class="message <%=messageType%>"><%-message%></p>
 <%}%>

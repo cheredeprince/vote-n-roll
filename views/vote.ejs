@@ -1,5 +1,4 @@
-<%-include partials/header%>
-
+<%-include( 'partials/header',{"elections": elections, "electionId":electionId})%>
 <% ballotsList.forEach(function(ballot){ %>
     <%if( ballot.ejs == "vote-pref"){%>
 	<%-include('partials/vote-pref',{"ballot":ballot})%>
