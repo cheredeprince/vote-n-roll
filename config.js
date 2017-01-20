@@ -42,7 +42,7 @@ config.voteModes = {
 
 config.elections = {
   "primaire-gauche":{
-    "name" : "la primaire de gauche",
+    "name" : "la primaire citoyenne",
     "description": "",
     "scrutins" : ["maj1","maj2","majn","bordas","condorcet","jugMaj"],
     "candidats" : {
