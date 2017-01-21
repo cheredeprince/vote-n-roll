@@ -3,13 +3,10 @@
     <p class="message <%=messageType%>"><%-message%></p>
 <%}%>
 <p><strong>Assigne</strong> une mention à chacun des candidats, et soumets ton vote.</p>
-<form action="/vote/ajout/jug/<%=electionId%>" method="post" class="txtcenter">
+<div class="txtcenter">
     <div class="grid-4-small-2 has-gutter-xl">
-        <%for(var i =0;i<nameLab.length;i++){%>
+	<%for(var i =0;i<nameLab.length;i++){%>
             <% include card-jug %>
-        <%}%>
+	<%}%>
     </div>
-    <p>
-	<input type="submit" id="jug-btn-submit" class="btn vote-btn" value="Soumettre votre vote par jugement">
-    </p>
-</form>
+</div>

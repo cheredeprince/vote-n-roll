@@ -12,7 +12,10 @@ router.use(function(req,res,next){
 router.get('/', function(req, res, next) {
 
   var E = Election.get();
+  var elections = Election.getAll();
+  
   res.render('credit', { title: 'Crédit',
+			 "elections": elections,
 			 "electionId" : E.id
 		       });
 });

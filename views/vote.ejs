@@ -1,13 +1,17 @@
 <%-include( 'partials/header',{"elections": elections, "electionId":electionId})%>
-<% ballotsList.forEach(function(ballot){ %>
-    <%if( ballot.ejs == "vote-pref"){%>
-	<%-include('partials/vote-pref',{"ballot":ballot})%>
-    <%}%>
+<form action="/vote/ajout/<%=electionId%>" method="post">
+    <% ballotsList.forEach(function(ballot){ %>
+	<%if( ballot.ejs == "vote-pref"){%>
+	    <%-include('partials/vote-pref',{"ballot":ballot})%>
+	<%}%>
 
-    <%if( ballot.ejs == "vote-jug"){%>
-	<%-include( 'partials/vote-jug',{"ballot":ballot})%>
-    <%}%>
-<%})%>
-
+	<%if( ballot.ejs == "vote-jug"){%>
+	    <%-include( 'partials/vote-jug',{"ballot":ballot})%>
+	<%}%>
+    <%})%>
+    <p>
+	<input type="submit" id="btn-submit" class="btn vote-btn" value="Soumettre votre vote par jugement">
+    </p>
+</form>
 <script src="/javascripts/form.js"></script>
 <%-include partials/footer%>

@@ -4,13 +4,14 @@
 <%}%>
 <p><strong>Sélectionne</strong> tous les candidats par ordre de préférence, en cliquant dessus, puis soumets ton vote.</p>
 
-<form action="/vote/ajout/pref/<%=electionId%>" method="post" class="txtcenter">
+
     <div class="grid-4-small-2 has-gutter-xl">
         <%for(var i =0;i<nameLab.length;i++){%>
             <% include card %>
         <%}%>
     </div>
     <p>
-	<input type="submit" id="pref-btn-submit" class="btn vote-btn" value="Soumettre votre vote alternatif">
+	<!-- <input type="submit" id="pref-btn-submit" class="btn vote-btn" value="Soumettre votre vote alternatif"> -->
+	
     </p>
-</form>
+

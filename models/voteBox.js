@@ -74,9 +74,9 @@ exports.init = function(voteModePerElection){
 
       Ballots[voteMode] = ballots[voteMode];
 
-      dbs[election][voteMode].count({},function(err,count){
+      dbs[election][voteMode].find({},function(err,votes){
 	if(err) throw err;
-	ballotsCount[election][voteMode] = count;
+	ballotsCount[election][voteMode] = _.reduce(votes,(res,v) => res+v.number,0);
       })
 
     })

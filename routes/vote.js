@@ -9,7 +9,8 @@ var escapeHTML = require('escape-html');
 var Election = require('../models/elections');
 var Candidats = require('../models/candidats.js'),
     Config    = require('../config.js'),
-    VoteBox   = require('../models/voteBox');
+    voteMode  = _.cloneDeep(Config.voteModes);
+VoteBox   = require('../models/voteBox');
 var resultsBoard = require('../models/resultsBoard')
 
 router.use(function(req,res,next){
@@ -55,7 +56,7 @@ router.get('/:electionId', function(req, res, next) {
   }
 
   //liste des bulletins que l'on veut recueillir avec leurs paramètres
-  var ballotsList = _.map(_.cloneDeep(Config.voteModes),(config) => config)
+  var ballotsList = _.map(voteMode,(config) => config)
   var elections = Election.getAll();
   
   res.render('vote',{
@@ -70,6 +71,65 @@ router.get('/:electionId', function(req, res, next) {
   });
 });
 
+router.post('/ajout/:electionId', function(req, res, next){
+
+  var electionId = req.params.electionId;
+  var E = Election.get(electionId);
+  console.log(electionId)
+  if(typeof E == 'undefined'){
+    res.status(404);
+    res.send('404: Page not Found');
+    return;
+  }
+
+  var candLabel = E.Candidats.labels();
+  var params    = req.body;
+  var savedNb   = 0;
+  var voteModeNB = Object.keys(voteMode).length; 
+
+  _.forEach(voteMode,function(m,modelLabel){
+    var data;
+    
+    if(modelLabel == "pref"){
+      data = [];
+      for(index in candLabel ){
+	var i = parseInt(params[candLabel[index]],10);
+	data[i] = candLabel[index];
+      }
+    }
+
+    if(modelLabel == "jug"){
+      data = {};
+      for(index in candLabel){
+	data[candLabel[index]] = params["jug-"+candLabel[index]];
+      }
+    }
+
+    console.log(data);
+    
+    VoteBox.addTo(E.id,modelLabel,data,candLabel,function(err){
+      if(err){
+	if(err =="invalid"){
+	  var message = encodeURIComponent("Vote invalide, pensez à remplir tout le formulaire");
+	  res.redirect('/vote/'+electionId+'?error='+message+'&to='+modelLabel+'#'+modelLabel);
+	}else
+	  return next(err);
+      }else{
+	//mise à jour des résultats
+	VoteBox.getFrom(E.id,modelLabel,function(err,ballots){
+	  resultsBoard.update(E.id,modelLabel,ballots);
+	})
+	
+	var message = encodeURIComponent("Votre vote pour le vote alternatif a été pris en compte. Vous pouvez voter pour le jugement majoritaire à présent.");
+	savedNb++;
+	if(savedNb == voteModeNB)
+	  res.redirect('/resultats/'+electionId+'?message='+message);
+      }
+    });
+    
+  })
+})
+
 /* POST vote pref */
 router.post('/ajout/pref/:electionId', function(req, res, next){
 
@@ -83,7 +143,6 @@ router.post('/ajout/pref/:electionId', function(req, res, next){
     return;
   }
 
-  
   var candLabel = E.Candidats.labels();
   var params    = req.body,
       labelList = [];
@@ -145,7 +204,6 @@ router.post('/ajout/jug/:electionId', function(req, res, next){
       //mise à jour des résultats
       VoteBox.getFrom(E.id,"jug",function(err,ballots){
 	resultsBoard.update(E.id,"jug",ballots);
-
       })
       
       var message = encodeURIComponent("Votre vote par jugement a été pris en compte.");
@@ -156,21 +214,3 @@ router.post('/ajout/jug/:electionId', function(req, res, next){
 })
 
 module.exports = router;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
