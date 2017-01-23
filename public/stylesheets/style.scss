@@ -21,7 +21,7 @@ nav ul {
 }
 
 nav ul li{
-    padding: 1rem;
+    padding: .75rem 0.5rem;
 }
 
 nav li a{
@@ -32,7 +32,10 @@ nav li a{
 nav .selected a{
     border-bottom-color: #e6843f;
 }
-@media (max-width: $small) {
+@media (max-width: $tiny) {
+    nav ul li{
+	padding: 0.5rem;
+    }
     .nav-title{
 	display : block;
     }
@@ -212,6 +215,7 @@ $btn-color:  #37948b;
     font-size: 20px;
     padding: 10px 20px 10px 20px;
     text-decoration: none;
+    white-space: normal;
 }
 
 .btn:hover {

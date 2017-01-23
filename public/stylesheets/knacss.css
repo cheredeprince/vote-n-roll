@@ -2610,7 +2610,7 @@ nav ul {
 }
 
 nav ul li {
-  padding: 1rem;
+  padding: .75rem .5rem;
 }
 
 nav li a {
@@ -2622,7 +2622,11 @@ nav .selected a {
   border-bottom-color: #e6843f;
 }
 
-@media (max-width: 544px) {
+@media (max-width: 356px) {
+  nav ul li {
+    padding: .5rem;
+  }
+
   .nav-title {
     display: block;
   }
@@ -2838,6 +2842,7 @@ text.value {
   font-family: Arial;
   font-size: 20px;
   padding: 10px 20px 10px 20px;
+  white-space: normal;
   text-decoration: none;
   color: #fff;
   border-radius: 28px;
