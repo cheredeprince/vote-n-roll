@@ -12,20 +12,20 @@
             <h1><a href="/">Vote'n Roll</a></h1>
             <nav id="navigation" role="navigation">
 	        <ul class="">
-		    <li class="pam inbl">
+		    <li class="inbl nav-title">
 			<%elections.forEach(function(e){
 			    if(e.id == electionId){%>
 			    <span><%=e.name%></span>
 			<%}})%> : </li>
-                    <li class="pam inbl <%=(pageName == "vote")?"selected":""%>"><a href="/vote/<%=electionId%>">L'isoloir</a></li>
-                    <li class="pam inbl <%=(pageName == "results")?"selected":""%>"><a href="/resultats/<%=electionId%>">Les résultats</a></li>
+                    <li class="inbl <%=(pageName == "vote")?"selected":""%>"><a href="/vote/<%=electionId%>">L'isoloir</a></li>
+                    <li class="inbl <%=(pageName == "results")?"selected":""%>"><a href="/resultats/<%=electionId%>">Les résultats</a></li>
 	        </ul>
 		<%if(elections.length >1){%>
 		    <ul class="">
-			<li class="pam inbl">Les autres élections : </li>
+			<li class="inbl nav-title">Les autres élections : </li>
 			<%elections.forEach(function(e){
 			    if(e.id != electionId){%>
-			    <li class="pam inbl"><a href="/vote/<%=e.id%>"><%=e.name%></a></li>
+			    <li class="inbl"><a href="/vote/<%=e.id%>"><%=e.name%></a></li>
 			<%}})
 			}%>
 	            </ul>

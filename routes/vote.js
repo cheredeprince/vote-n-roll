@@ -104,8 +104,6 @@ router.post('/ajout/:electionId', function(req, res, next){
 	data[candLabel[index]] = params["jug-"+candLabel[index]];
       }
     }
-
-    console.log(data);
     
     VoteBox.addTo(E.id,modelLabel,data,candLabel,function(err){
       if(err){
@@ -120,7 +118,7 @@ router.post('/ajout/:electionId', function(req, res, next){
 	  resultsBoard.update(E.id,modelLabel,ballots);
 	})
 	
-	var message = encodeURIComponent("Votre vote pour le vote alternatif a été pris en compte. Vous pouvez voter pour le jugement majoritaire à présent.");
+	var message = encodeURIComponent("Vos votes ont été pris en compte. Vous pouvez à présent consulter les résultats.");
 	savedNb++;
 	if(savedNb == voteModeNB)
 	  res.redirect('/resultats/'+electionId+'?message='+message);

@@ -16,6 +16,10 @@ nav ul:nth-child(2){
     padding-top:0;    
 }
 
+nav ul li{
+    padding: 1rem;
+}
+
 nav li a{
     text-decoration : none;
     border-bottom: 1px solid black;
@@ -23,6 +27,11 @@ nav li a{
 
 nav .selected a{
     border-bottom-color: #e6843f;
+}
+@media (max-width: $small) {
+    .nav-title{
+	display : block;
+    }
 }
 
 .info{
