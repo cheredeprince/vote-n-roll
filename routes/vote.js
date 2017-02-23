@@ -9,7 +9,8 @@ var escapeHTML = require('escape-html');
 var Election = require('../models/elections');
 var Candidats = require('../models/candidats.js'),
     Config    = require('../config.js'),
-    voteMode  = _.cloneDeep(Config.voteModes);
+    voteMode  = _.cloneDeep(Config.voteModes),
+    voteParser = require('../lib/postParser.js');
 VoteBox   = require('../models/voteBox');
 var resultsBoard = require('../models/resultsBoard')
 
@@ -88,22 +89,9 @@ router.post('/ajout/:electionId', function(req, res, next){
   var voteModeNB = Object.keys(voteMode).length; 
 
   _.forEach(voteMode,function(m,modelLabel){
-    var data;
-    
-    if(modelLabel == "pref"){
-      data = [];
-      for(index in candLabel ){
-	var i = parseInt(params[candLabel[index]],10);
-	data[i] = candLabel[index];
-      }
-    }
 
-    if(modelLabel == "jug"){
-      data = {};
-      for(index in candLabel){
-	data[candLabel[index]] = params["jug-"+candLabel[index]];
-      }
-    }
+    // get specific data of the vote mode from the post data
+    var data = voteParser[m.postParser](params,candLabel);
     
     VoteBox.addTo(E.id,modelLabel,data,candLabel,function(err){
       if(err){
@@ -128,87 +116,87 @@ router.post('/ajout/:electionId', function(req, res, next){
   })
 })
 
-/* POST vote pref */
-router.post('/ajout/pref/:electionId', function(req, res, next){
+// /* POST vote pref */
+// router.post('/ajout/pref/:electionId', function(req, res, next){
 
   
-  var electionId = req.params.electionId;
-  var E = Election.get(electionId);
+//   var electionId = req.params.electionId;
+//   var E = Election.get(electionId);
 
-  if(typeof E == 'undefined'){
-    res.status(404);
-    res.send('404: Page not Found');
-    return;
-  }
+//   if(typeof E == 'undefined'){
+//     res.status(404);
+//     res.send('404: Page not Found');
+//     return;
+//   }
 
-  var candLabel = E.Candidats.labels();
-  var params    = req.body,
-      labelList = [];
+//   var candLabel = E.Candidats.labels();
+//   var params    = req.body,
+//       labelList = [];
 
-  for(index in candLabel){
-    var i = parseInt(params[candLabel[index]],10);
-    labelList[i] = candLabel[index];
-  }
+//   for(index in candLabel){
+//     var i = parseInt(params[candLabel[index]],10);
+//     labelList[i] = candLabel[index];
+//   }
 
-  VoteBox.addTo(E.id,"pref",labelList,candLabel,function(err){
-    if(err){
-      if(err =="invalid"){
-	var message = encodeURIComponent("Vote invalide, pensez à classer TOUS les candidats");
-	res.redirect('/vote/'+electionId+'?error='+message+'&to=pref#pref');
-      }else
-	return next(err);
-    }else{
-      //mise à jour des résultats
-      VoteBox.getFrom(E.id,"pref",function(err,ballots){
-	resultsBoard.update(E.id,"pref",ballots);
-      })
+//   VoteBox.addTo(E.id,"pref",labelList,candLabel,function(err){
+//     if(err){
+//       if(err =="invalid"){
+// 	var message = encodeURIComponent("Vote invalide, pensez à classer TOUS les candidats");
+// 	res.redirect('/vote/'+electionId+'?error='+message+'&to=pref#pref');
+//       }else
+// 	return next(err);
+//     }else{
+//       //mise à jour des résultats
+//       VoteBox.getFrom(E.id,"pref",function(err,ballots){
+// 	resultsBoard.update(E.id,"pref",ballots);
+//       })
       
-      var message = encodeURIComponent("Votre vote pour le vote alternatif a été pris en compte. Vous pouvez voter pour le jugement majoritaire à présent.");
-      res.redirect('/vote/'+electionId+'?message='+message+'&to=jug#jug');
-    }
-  });
-})
+//       var message = encodeURIComponent("Votre vote pour le vote alternatif a été pris en compte. Vous pouvez voter pour le jugement majoritaire à présent.");
+//       res.redirect('/vote/'+electionId+'?message='+message+'&to=jug#jug');
+//     }
+//   });
+// })
 
-/* POST vote jug */
-router.post('/ajout/jug/:electionId', function(req, res, next){
+// /* POST vote jug */
+// router.post('/ajout/jug/:electionId', function(req, res, next){
 
-  var electionId = req.params.electionId;
-  var E = Election.get(electionId);
+//   var electionId = req.params.electionId;
+//   var E = Election.get(electionId);
 
-  if(typeof E == 'undefined'){
-    res.status(404);
-    res.send('404: Page not Found');
-    return;
-  }
+//   if(typeof E == 'undefined'){
+//     res.status(404);
+//     res.send('404: Page not Found');
+//     return;
+//   }
 
   
-  var candLabel = E.Candidats.labels();
-  var params    = req.body,
-      jugPerCand= {};
+//   var candLabel = E.Candidats.labels();
+//   var params    = req.body,
+//       jugPerCand= {};
 
-  for(index in candLabel){
-    jugPerCand[candLabel[index]] = params["jug-"+candLabel[index]];
-  }
+//   for(index in candLabel){
+//     jugPerCand[candLabel[index]] = params["jug-"+candLabel[index]];
+//   }
 
   
-  VoteBox.addTo(E.id,"jug",jugPerCand,candLabel,function(err){
-    if(err){
-      if(err =="invalid"){
-	var message = encodeURIComponent("Vote invalide, pensez à juger TOUS les candidats");
-	res.redirect('/vote/'+electionId+'?error='+message+'&to=jug#jug');
-      }else
-	return next(err);
-    }else{
-      //mise à jour des résultats
-      VoteBox.getFrom(E.id,"jug",function(err,ballots){
-	resultsBoard.update(E.id,"jug",ballots);
-      })
+//   VoteBox.addTo(E.id,"jug",jugPerCand,candLabel,function(err){
+//     if(err){
+//       if(err =="invalid"){
+// 	var message = encodeURIComponent("Vote invalide, pensez à juger TOUS les candidats");
+// 	res.redirect('/vote/'+electionId+'?error='+message+'&to=jug#jug');
+//       }else
+// 	return next(err);
+//     }else{
+//       //mise à jour des résultats
+//       VoteBox.getFrom(E.id,"jug",function(err,ballots){
+// 	resultsBoard.update(E.id,"jug",ballots);
+//       })
       
-      var message = encodeURIComponent("Votre vote par jugement a été pris en compte.");
-      res.redirect('/resultats/'+electionId+'?message='+message);
+//       var message = encodeURIComponent("Votre vote par jugement a été pris en compte.");
+//       res.redirect('/resultats/'+electionId+'?message='+message);
       
-    }
-  });
-})
+//     }
+//   });
+// })
 
 module.exports = router;
