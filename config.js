@@ -53,7 +53,8 @@ config.elections = {
     "candidats" : {
       "val" : {
 	"name"  : "Manuel Valls",
-	"image" : "http://www.lesprimairescitoyennes.fr/wp-content/uploads/2016/12/manuel_valls_portrait.png",
+	"image" : "http://www.lesprimairescitoyennes.fr/wp-content/uploads/2017/01/manuel_valls_site_primaires_vignette-490x490.png",
+	//	"image" : "http://www.lesprimairescitoyennes.fr/wp-content/uploads/2016/12/manuel_valls_portrait.png",
 	"color" : "#7b6888"
       },
       "mon" : {
