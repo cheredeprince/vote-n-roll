@@ -82,3 +82,4 @@ exports.init = function(voteModePerElection){
     })
   })
 };
+

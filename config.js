@@ -13,13 +13,15 @@ config.voteModes = {
   "pref" : {
     "name": "vote alternatif",
     "ejs" : "vote-pref",
-    "postParser" : "votePref"
+    "postParser" : "votePref",
+    "toCSV": "prefCSV"
   },
   
   "jug" : {
     "name": "jugement majoritaire",
     "ejs" : "vote-jug",
     "postParser" : "voteJug",
+    "toCSV": "jugCSV",
     "sortedMention" : ['insuf','passa','quitg','good','veryg'],
     // attention les couleurs doivent être aussi présentes dans style.scss
     // pour obtenir la palette original :

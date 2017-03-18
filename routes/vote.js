@@ -4,6 +4,8 @@
 var express = require('express'),
     _       = require('lodash');
 var router  = express.Router();
+var fs      = require('fs');
+var path    = require('path');
 var escapeHTML = require('escape-html');
 
 var Election = require('../models/elections');
@@ -104,6 +106,10 @@ router.post('/ajout/:electionId', function(req, res, next){
 	//mise à jour des résultats
 	VoteBox.getFrom(E.id,modelLabel,function(err,ballots){
 	  resultsBoard.update(E.id,modelLabel,ballots);
+
+	  //save csv of results
+	  var ws = fs.createWriteStream("public/data/votes-"+electionId+"-"+modelLabel+".csv");
+	  require('../lib/toCSV')[m.toCSV](ballots,ws);
 	})
 	
 	var message = encodeURIComponent("Vos votes ont été pris en compte. Vous pouvez à présent consulter les résultats.");
