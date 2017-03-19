@@ -1,0 +1,18 @@
+<%- include partials/header%>
+
+<p class="">Voici les différents jeux de données recueillies durant les élections : </p>
+<ul>
+    <%voteModeByElec.forEach(function(voteModes,ElecId){%>
+	<li>
+	    <ul>
+		<%-elections[ElecId].id%>
+	    <%voteModes.forEach(function(voteMode){%>
+		<li>
+		    <a href="/data/votes-<%-elections[ElecId].id%>-<%-voteModes[0]%>.csv"><%-voteMode%></a>
+		</li>
+	    <%})%>
+	    </ul>
+	</li>
+    <%})%>
+</ul>
+<%-include partials/footer%>
