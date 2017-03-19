@@ -5,11 +5,13 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var _ = require("lodash");
+var fs = require("fs");
 
 var index = require('./routes/index');
 var vote  = require('./routes/vote');
 var results  = require('./routes/results');
 var credit  = require('./routes/credit');
+var data  = require('./routes/data');
 
 var config = require('./config');
 var voteBox = require('./models/voteBox');
@@ -33,15 +35,18 @@ _.forEach(config.elections,function(election,id){
   res[id] = {};
   voteModePerElection[id].forEach(function(modeVote){
     voteBox.getFrom(id,modeVote,function(err, ballots){
+      //create csv of results
+      var ws = fs.createWriteStream("public/data/votes-"+id+"-"+modeVote+".csv");
+      require('./lib/toCSV')[config.voteModes[modeVote].toCSV](ballots,ws);
+
       
       k++;
       res[id][modeVote] = ballots;
       if(k==length)
-	resultsBoard.init(_.cloneDeep(config.elections),_.cloneDeep(config.scrutins),res);    
+	resultsBoard.init(_.cloneDeep(config.elections),_.cloneDeep(config.scrutins),res);
     });
 })
 })
-
 
 
 var app = express();
@@ -65,6 +70,7 @@ app.use('/', index);
 app.use('/vote',vote);
 app.use('/resultats',results);
 app.use('/credit',credit);
+app.use('/data',data);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

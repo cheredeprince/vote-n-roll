@@ -9,7 +9,7 @@ var mkResPerscrutin = {};
 
 exports.update = function(election,voteMode,ballots){
   scrutinsPerElection[election][voteMode].forEach(function(scrutin){    
-    resultsBoards[election][scrutin] = mkResPerscrutin[scrutin](ballots);
+    resultsBoards[election][scrutin] = mkResPerscrutin[scrutin](ballots,resultsBoards[election][election]);
   });
 }
 
