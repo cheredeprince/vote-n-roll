@@ -36,7 +36,7 @@ _.forEach(config.elections,function(election,id){
   voteModePerElection[id].forEach(function(modeVote){
     voteBox.getFrom(id,modeVote,function(err, ballots){
       //create csv of results
-      var ws = fs.createWriteStream("public/data/votes-"+id+"-"+modeVote+".csv");
+      var ws = fs.createWriteStream(__dirname+"/public/data/votes-"+id+"-"+modeVote+".csv");
       require('./lib/toCSV')[config.voteModes[modeVote].toCSV](ballots,ws);
 
       
