@@ -199,7 +199,7 @@ var display = (function(){
       .attr("dy",".75em")
       .attr("text-anchor","middle")
       .attr("x",x1.rangeBand()/2)
-      .text(function(d){ return d.value;})
+      .text(function(d){ return (''+d.value);})
     
     var legend = svg.selectAll(".legend")
         .data(ageNames.slice().reverse())
@@ -227,7 +227,7 @@ var display = (function(){
   var stackedBar = function(data,label){
     // Setup svg using Bostock's margin convention
 
- //   var margin = {top: 20, right: 160, bottom: 35, left: 30};
+    //   var margin = {top: 20, right: 160, bottom: 35, left: 30};
 
     var width = mainWidth - margin.left - margin.right,
 	height = mainWidth*500/960 - margin.top - margin.bottom,
@@ -278,7 +278,7 @@ var display = (function(){
 	.domain([0, d3.max(dataset, function(d) { return d3.max(d, function(d) { return d.y0 + d.y; });  })])
 	.range([height, 0]);
 
-     // Create groups for each series, rects for each segment 
+    // Create groups for each series, rects for each segment 
     var groups = svg.selectAll("g.cost")
 	.data(dataset)
 	.enter().append("g")
@@ -302,7 +302,7 @@ var display = (function(){
 	  tooltip.select("text").text(formatPercent(d.y));
 	});
     // Define and draw axes
-      
+    
     var yAxis = d3.svg.axis()
 	.scale(y)
 	.orient("left")
