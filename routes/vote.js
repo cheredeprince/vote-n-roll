@@ -108,7 +108,7 @@ router.post('/ajout/:electionId', function(req, res, next){
 	  resultsBoard.update(E.id,modelLabel,ballots);
 
 	  //save csv of results
-	  var ws = fs.createWriteStream("public/data/votes-"+electionId+"-"+modelLabel+".csv");
+	  var ws = fs.createWriteStream(__dirname+"/../public/data/votes-"+electionId+"-"+modelLabel+".csv");
 	  require('../lib/toCSV')[m.toCSV](ballots,ws);
 	})
 	
