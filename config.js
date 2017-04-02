@@ -48,7 +48,68 @@ config.voteModes = {
 }
 
 config.elections = {
-
+  "presidentielle": {
+    "name" : "l'élection présidentielle",
+    "description": "",
+    "scrutins" : ["maj1","maj2","majn","bordas","condorcet","jugMaj"],
+    "candidats" : {
+      "ass" : {
+	"name"  : "François Asselineau",
+	"image" : "https://pbs.twimg.com/profile_images/845387075486728193/6HA8xTgS_200x200.jpg",
+	"color" : "#057c85"
+      },
+      "dup" : {
+	"name"  : "Nicolas Dupont-Aignan",
+	"image" : "https://pbs.twimg.com/profile_images/672054572601483265/xRGGJGn1_200x200.jpg",
+	"color" : "#54a0d4"
+      },
+      "lep" : {
+	"name"  : "Marine Le Pen",
+	"image" : "https://pbs.twimg.com/profile_images/806157043677724672/0Pe1Xh_U_200x200.jpg",
+	"color" : "#1e2148"
+      },
+      "mac" : {
+	"name"  : "Emmanuel Macron",
+	"image" : "https://pbs.twimg.com/profile_images/834424630630817795/TfyS4uXb_200x200.jpg",
+	"color" : "#6b7076"
+      },
+      "ham" : {
+	"name"  : "Benoît Hamon",
+	"image" : "https://pbs.twimg.com/profile_images/846787408712646657/cxRnGUlS_200x200.jpg",
+	"color" : "#6e3191"
+      },
+      "art" : {
+	"name"  : "Nathalie Arthaud",
+	"image" : "https://pbs.twimg.com/profile_images/692079601200295941/rCfOm6nc_200x200.jpg",
+	"color" : "#e53333"
+      },
+      "pou" : {
+	"name"  : "Philippe Poutou",
+	"image" : "https://pbs.twimg.com/profile_images/722778700136259585/SBDHHEwg_200x200.jpg",
+	"color" : "#c0081f"
+      },
+      "che" : {
+	"name"  : "Jacques Cheminade",
+	"image" : "https://pbs.twimg.com/profile_images/2511020171/orf7onnkacicyn8odg26_200x200.jpeg",
+	"color" : "#f59c37"
+      },
+      "las" : {
+	"name"  : "Jean Lassalle",
+	"image" : "https://pbs.twimg.com/profile_images/847165852315201538/UD8nO_nH_200x200.jpg",
+	"color" : "#6b848c"
+      },
+      "mel" : {
+	"name"  : "Jean-Luc Mélenchon",
+	"image" : "https://pbs.twimg.com/profile_images/846345918710460416/6_IxAsw9_200x200.jpg",
+	"color" : "#D0462D"
+      },
+      "fil" : {
+	"name"  : "François Fillon",
+	"image" : "https://pbs.twimg.com/profile_images/845229246280863745/U3jdwWGz_200x200.jpg",
+	"color" : "#23408f"
+      }
+    }
+  },
   "primaire-gauche":{
     "name" : "la primaire citoyenne",
     "description": "",
