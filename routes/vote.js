@@ -77,8 +77,8 @@ router.get('/:electionId', function(req, res, next) {
 router.post('/ajout/:electionId', function(req, res, next){
 
   var electionId = req.params.electionId;
-  var E = Election.get(electionId);
-  console.log(electionId)
+    var E = Election.get(electionId);
+    
   if(typeof E == 'undefined'){
     res.status(404);
     res.send('404: Page not Found');
@@ -90,20 +90,23 @@ router.post('/ajout/:electionId', function(req, res, next){
   var savedNb   = 0;
   var voteModeNB = Object.keys(voteMode).length; 
 
-  _.forEach(voteMode,function(m,modelLabel){
 
-    // get specific data of the vote mode from the post data
-    var data = voteParser[m.postParser](params,candLabel);
+   // get specific data of the vote mode from the post data
+    var datas = _.map(voteMode, (m,modelLabel)=> voteParser[m.postParser](params,candLabel));
+    console.log(datas);
+
+    var vmLabels = Object.keys(voteMode);
     
-    VoteBox.addTo(E.id,modelLabel,data,candLabel,function(err){
-      if(err){
+    VoteBox.addTo(E.id,vmLabels,datas,candLabel,function(err,mlError){
+	if(err){
 	if(err =="invalid"){
 	  var message = encodeURIComponent("Vote invalide, pensez à remplir tout le formulaire");
-	  res.redirect('/vote/'+electionId+'?error='+message+'&to='+modelLabel+'#'+modelLabel);
+	  res.redirect('/vote/'+electionId+'?error='+message+'&to='+mlError+'#'+mlError);
 	}else
 	  return next(err);
-      }else{
-	//mise à jour des résultats
+	}else{
+	    _.forEach(voteMode,function(m,modelLabel){
+		//mise à jour des résultats
 	VoteBox.getFrom(E.id,modelLabel,function(err,ballots){
 	  resultsBoard.update(E.id,modelLabel,ballots);
 
@@ -112,12 +115,11 @@ router.post('/ajout/:electionId', function(req, res, next){
 	  require('../lib/toCSV')[m.toCSV](ballots,ws);
 	})
 	
-	var message = encodeURIComponent("Vos votes ont été pris en compte. Vous pouvez à présent consulter les résultats.");
-	savedNb++;
-	if(savedNb == voteModeNB)
+	    })
+
+	  var message = encodeURIComponent("Vos votes ont été pris en compte. Vous pouvez à présent consulter les résultats.");
 	  res.redirect('/resultats/'+electionId+'?message='+message);
-      }
-    });
+	}
     
   })
 })
