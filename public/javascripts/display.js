@@ -518,16 +518,10 @@ var display = (function(){
           .attr("transform", function(d, i) { return "translate(" + (x(i) - x(0)) + ",0)" });
       
       // node bars
-      var nodes = times.selectAll('g.node')
+      var nodeBox = times.selectAll('g.node')
           .data(function(d) { return d })
           .enter().append('svg:g')
           .attr('class', 'node')
-          .on("mousemove", function(n){
-            div.style("left", d3.event.pageX+10+"px");
-            div.style("top", d3.event.pageY-25+"px");
-            div.style("display", "inline-block");
-            div.html((n.nodeName)+"<br>"+(n.nodeValue) +" voix");
-          })
           .on("mouseout", function(d){
             div.style("display", "none");
           });
@@ -536,6 +530,14 @@ var display = (function(){
 
       //      nodes.append('svg:title')
       //        .text(function(n) { return n.nodeName })
+
+      var nodes = nodeBox.append('svg:g')
+          .on("mousemove", function(n){
+            div.style("left", d3.event.pageX+10+"px");
+            div.style("top", d3.event.pageY-25+"px");
+            div.style("display", "inline-block");
+            div.html((n.nodeName)+"<br>"+(n.nodeValue) +" voix");
+          });
       
       nodes.append('svg:rect')
         .attr('y', function(n, i) {
@@ -544,9 +546,8 @@ var display = (function(){
         .attr('width', x.rangeBand())
         .attr('height', function(n) { return y(n.nodeValue) })
         .attr('fill',function(n){ return color[n.nodeName] })
-      
-      nodes
-        .append("svg:image")
+
+      nodes.append("svg:image")
         .attr('y', function(n, i) {
           return y(n.offsetValue) + i * padding;
         })
@@ -554,7 +555,7 @@ var display = (function(){
         .attr('height', function(n) { return Math.min(x.rangeBand(),y(n.nodeValue))})
         .attr("transform", function(n){
           var dx = (x.rangeBand() - Math.min(x.rangeBand(),y(n.nodeValue)))/2,
-              dy = ( y(n.nodeValue) - Math.min( x.rangeBand() , y(n.nodeValue) ))/2;
+	      dy = ( y(n.nodeValue) - Math.min( x.rangeBand() , y(n.nodeValue) ))/2;
           
           return "translate("+dx+","+dy+")";
         })
@@ -592,18 +593,26 @@ var display = (function(){
       }
       
       // links
-      var links = nodes.selectAll('path.link')
+      var links = nodeBox.selectAll('path.link')
           .data(function(n){ return n.incoming || [] })
           .enter().append('svg:path')
           .attr('class', 'link')
           .style('stroke-width', function(l) { return y(l.value) })
           .style('stroke',function(l){ return l.color})
           .attr('d', linkLine(true))
-          .on('mouseover', function() {
+          .on('mouseover', function(d) {
+//	    d3.event.stopPropagation();
+
             d3.select(this).attr('class', 'link on')
           })
           .on('mouseout', function() {
             d3.select(this).attr('class', 'link')
+          })
+	  .on("mousemove", function(n){
+            div.style("left", d3.event.pageX+10+"px");
+            div.style("top", d3.event.pageY-25+"px");
+            div.style("display", "inline-block");
+            div.html("transfert de "+(n.value) +" voix");
           })
           .transition()
           .duration(delay)
