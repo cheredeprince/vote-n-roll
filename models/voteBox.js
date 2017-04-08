@@ -22,14 +22,12 @@ exports.addTo = function(election,vmLabels,datas,candLabel,next){
     var ballotsData = [];
     
     var aux = function(i){
-	console.log("aux",vmLabels[i], vmLabels[i]);
 	if(i == vmLabels.length)
 	    return aux2();
 	// on initialise le bulletin à avec la liste de candidats
 	var ballot = new Ballots[vmLabels[i]](candLabel,election);
 	// on inscrit les données du vote sur le bulletin
 	ballot.set(datas[i], function(err){
-	    console.log("aux",i, vmLabels[i],err);
 	    if(err) return next("invalid",vmLabels[i]);
 
 	    ballotsData[i] = ballot.get();

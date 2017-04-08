@@ -93,7 +93,6 @@ router.post('/ajout/:electionId', function(req, res, next){
 
    // get specific data of the vote mode from the post data
     var datas = _.map(voteMode, (m,modelLabel)=> voteParser[m.postParser](params,candLabel));
-    console.log(datas);
 
     var vmLabels = Object.keys(voteMode);
     
