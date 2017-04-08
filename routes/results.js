@@ -23,7 +23,7 @@ router.get('/:electionId', function(req, res, next) {
   var electionId = req.params.electionId;
 
   var E = Election.get(electionId);
-
+  console.log(E)
   if(typeof E == 'undefined'){
     res.status(404);
     res.send('404: Page not Found');

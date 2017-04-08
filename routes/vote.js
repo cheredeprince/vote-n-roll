@@ -77,7 +77,7 @@ router.get('/:electionId', function(req, res, next) {
 router.post('/ajout/:electionId', function(req, res, next){
 
   var electionId = req.params.electionId;
-    var E = Election.get(electionId);
+  var E = Election.get(electionId);
     
   if(typeof E == 'undefined'){
     res.status(404);
@@ -88,7 +88,7 @@ router.post('/ajout/:electionId', function(req, res, next){
   var candLabel = E.Candidats.labels();
   var params    = req.body;
   var savedNb   = 0;
-  var voteModeNB = Object.keys(voteMode).length; 
+  var voteModeNB = Object.keys(E.voteModes).length; 
 
 
    // get specific data of the vote mode from the post data
@@ -121,6 +121,45 @@ router.post('/ajout/:electionId', function(req, res, next){
 	}
     
   })
+})
+
+router.get('/json/:electionId',function(req,res,next){
+  
+  var electionId = req.params.electionId;
+  var E = Election.get(electionId);
+
+   if(typeof E == 'undefined'){
+     res.status(404);
+     res.send('404: Page not Found');
+     return;
+   }
+  
+  res.setHeader('Content-Type', 'application/json');
+
+  var allBallots = {};
+  var voteModes = E.voteModes
+  console.log(E.voteModes);
+  grapBallot(0);
+
+  function grapBallot(i){
+    VoteBox.getFrom(E.id,voteModes[i],function(err,ballots){
+      if(err) return next(err);
+
+      allBallots[voteModes[i]] = ballots
+      
+      i++;
+      if(voteModes.length == i)
+	return send();
+      else
+	return grapBallot(i);
+	
+    }); 
+  }
+
+  function send(){
+    res.send({a:1});
+  }
+  
 })
 
 // /* POST vote pref */

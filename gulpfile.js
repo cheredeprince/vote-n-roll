@@ -1,42 +1,51 @@
 // Requis
 var gulp = require('gulp');
 var browserSync = require('browser-sync');
+var browserify = require('gulp-browserify');
+var rename = require('gulp-rename');
 // Include plugins
 var plugins = require('gulp-load-plugins')(); // tous les plugins de package.json
 
-// Variables de chemins
-var source = '.'; // dossier de travail
-var destination = '.'; // dossier à livrer
+gulp.task('browserify', function() {
+  // Single entry point to browserify 
+  gulp.src('./public/javascripts/main.js')
+    .pipe(browserify({
+      insertGlobals : true,
+      debug : !gulp.env.production
+    }))
+    .pipe(rename('results.js'))
+    .pipe(gulp.dest('./public/javascripts/'))
+});
 
 // Tâche "build" = SASS + autoprefixer + CSScomb + beautify (source -> destination)
 gulp.task('css', function () {
-  return gulp.src(source + '/public/stylesheets/knacss.scss')
+  return gulp.src('./public/stylesheets/knacss.scss')
     .pipe(plugins.sass())
     .pipe(plugins.csscomb())
     .pipe(plugins.cssbeautify({indent: '  '}))
     .pipe(plugins.autoprefixer())
-    .pipe(gulp.dest(destination + '/public/stylesheets/'));
+    .pipe(gulp.dest('./public/stylesheets/'));
 });
 
 // Tâche "minify" = minification CSS (destination -> destination)
 gulp.task('minify', function () {
-  return gulp.src(destination + '/public/stylesheets/knacss.css')
+  return gulp.src('./public/stylesheets/knacss.css')
     .pipe(plugins.csso())
     .pipe(plugins.rename({
       suffix: '.min'
     }))
-    .pipe(gulp.dest(destination + '/public/stylesheets/'));
+    .pipe(gulp.dest('./public/stylesheets/'));
 });
 
 
 //Tâche nodemon
 gulp.task('nodemon', function (cb) {
-	
-	var started = false;
-	
-	return plugins.nodemon({
-		script: './bin/www'
-	})
+  
+  var started = false;
+  
+  return plugins.nodemon({
+    script: './bin/www'
+  })
     .on('start', function () {
       // to avoid nodemon being started multiple times
       // thanks @matthisk
@@ -69,7 +78,8 @@ gulp.task('prod', ['build',  'minify']);
 
 // Tâche "watch" = je surveille *scss
 gulp.task('watch', function () {
-  gulp.watch(source + '/public/stylesheets/*.scss', ['build']);
+  gulp.watch('./public/stylesheets/*.scss', ['build']);
+  gulp.watch('./public/javascripts/*.js',['browserify'])
   gulp.watch(['./public/stylesheets/*.css',
 	      './views/**/*.ejs'],
 	     browserSync.reload);
