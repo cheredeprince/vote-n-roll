@@ -39,7 +39,6 @@ _.forEach(config.elections,function(election,id){
       var ws = fs.createWriteStream(__dirname+"/public/data/votes-"+id+"-"+modeVote+".csv");
       require('./lib/toCSV')[config.voteModes[modeVote].toCSV](ballots,ws);
 
-      
       k++;
       res[id][modeVote] = ballots;
       if(k==length)
@@ -47,6 +46,8 @@ _.forEach(config.elections,function(election,id){
     });
 })
 })
+
+
 
 
 var app = express();

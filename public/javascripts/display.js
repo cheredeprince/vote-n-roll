@@ -1,4 +1,4 @@
-var display = (function(){
+var Display = (function(){
 
   var doc = document,
       main = doc.getElementById('main'),
@@ -8,6 +8,8 @@ var display = (function(){
       color,
       config = {};
 
+
+  //set colors by candidats NAME
   var setColors = function(colors){
     color = colors;
   };

@@ -6,8 +6,8 @@
 
 
     <div class="grid-4-small-2 has-gutter-xl">
-        <%for(var i =0;i<nameLab.length;i++){%>
-            <% include card %>
+      <%for(var i =0;i<nameLab.length;i++){%>
+		<%-include('card.ejs',{"candidat": nameLab[i], "candidatLength": nameLab.length }) %>
         <%}%>
     </div>
     <p>

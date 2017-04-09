@@ -33,12 +33,12 @@ router.get('/:electionId', function(req, res, next) {
     return;
   }
 
-  var candLabel = E.Candidats.labels(),
+  var candLabel = E.Candidats.labels,
       nameLab   = _.map(candLabel,
                         function(label){
                           return { "label" : label,
-                                   "name"  : E.Candidats.getNameOf(label),
-                                   "image" : E.Candidats.getImageOf(label)
+                                   "name"  : E.Candidats[label].name,
+                                   "image" : E.Candidats[label].image
                                  };
                         });
 
@@ -85,10 +85,10 @@ router.post('/ajout/:electionId', function(req, res, next){
     return;
   }
 
-  var candLabel = E.Candidats.labels();
+  var candLabel = E.Candidats.labels;
   var params    = req.body;
   var savedNb   = 0;
-  var voteModeNB = Object.keys(E.voteModes).length; 
+  var voteModeNB = E.voteModes.length; 
 
 
    // get specific data of the vote mode from the post data
@@ -138,7 +138,7 @@ router.get('/json/:electionId',function(req,res,next){
 
   var allBallots = {};
   var voteModes = E.voteModes
-  console.log(E.voteModes);
+
   grapBallot(0);
 
   function grapBallot(i){
@@ -157,7 +157,7 @@ router.get('/json/:electionId',function(req,res,next){
   }
 
   function send(){
-    res.send({a:1});
+    res.send(allBallots);
   }
   
 })

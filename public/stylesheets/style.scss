@@ -123,6 +123,10 @@ text.value {
     transition : filter 1s;
 }
 
+.card .card-name{
+    transition : color 1s;
+}
+
 .choosen-card .card-photo{
     filter: none;
 } 
@@ -134,6 +138,25 @@ text.value {
 .card-head{
     position:relative;
 }
+
+.card input[type=checkbox]{
+    display:none;
+}
+
+.card input[type=checkbox] ~label .card-name{
+    color: grey;
+}
+
+
+.card input[type=checkbox]:checked ~label .card-name{
+    color:black;
+}
+
+.card input[type=checkbox]:checked ~label img{
+  filter:none;
+}
+
+
 
 .card-number{
     display : none;
@@ -150,7 +173,6 @@ text.value {
 }
 
 .card-jug{
-
     display: flex;
     flex-direction:column;
     margin-top:1em;

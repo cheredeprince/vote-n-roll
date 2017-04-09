@@ -18,6 +18,9 @@ router.use(function(req,res,next){
 
 /* GET les resultats. */
 router.get('/:electionId', function(req, res, next) {
+
+  setTimeout(function(){
+  
   //s'il y a un message à afficher
   var message = (req.query.message)?escapeHTML(req.query.message): undefined;
   var electionId = req.params.electionId;
@@ -41,12 +44,9 @@ router.get('/:electionId', function(req, res, next) {
 	"nbVotes": VoteBox.getCountOf(E.id,scrutin.voteMode)
       };
     
-    
     tmpVMI[scrutin.voteMode].scrutins.push({
       "label" : label,
       "name"  : scrutin.name,
-      "data"  : Data[scrutin.getData](ResultsBoard.get(E.id,label),E.Candidats),
-      "display": scrutin.display,
       "chartTitle" : scrutin.chartTitle,
       "presentation": scrutin.presentation
     })
@@ -62,9 +62,12 @@ router.get('/:electionId', function(req, res, next) {
 
   var elections = Election.getAll();
 
+  console.log("elections",E.Candidats)
+  
   var info = { "title" : "Les résultats de "+E.name,
 	       "electionName" : E.name,
 	       "electionId": E.id,
+	       "election" : E,
 	       "elections" : elections,
 	       "message" : message,
 	       "colors" :  E.Candidats.getColorsByCandName(),
@@ -72,11 +75,11 @@ router.get('/:electionId', function(req, res, next) {
 	       "voteModeConf" : _.cloneDeep(Config.voteModes),
 	       "candConf": E.Candidats.getData(),
 	       "resultPage": true,
-	       "messageType" : "info",
-	       "total": totalScore
+	       "messageType" : "info"
              };
   
   res.render('results', info);
+  },600)  
 });
 
 module.exports = router;
