@@ -26,7 +26,6 @@ router.get('/:electionId', function(req, res, next) {
   var electionId = req.params.electionId;
 
   var E = Election.get(electionId);
-  console.log(E)
   if(typeof E == 'undefined'){
     res.status(404);
     res.send('404: Page not Found');
@@ -53,16 +52,7 @@ router.get('/:electionId', function(req, res, next) {
     
   });
   
-  var totalScore = _.map(E.scrutins,function(scrutin){
-    var r = ResultsBoard.get(E.id,scrutin.id).ranked;
-    r = _.mapKeys(r,(v,lab) => E.Candidats.getNameOf(lab))
-    r.category = scrutin.name;
-    return r;
-  });
-
   var elections = Election.getAll();
-
-  console.log("elections",E.Candidats)
   
   var info = { "title" : "Les résultats de "+E.name,
 	       "electionName" : E.name,

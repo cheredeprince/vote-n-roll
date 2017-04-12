@@ -3,12 +3,14 @@ var gulp = require('gulp');
 var browserSync = require('browser-sync');
 var browserify = require('gulp-browserify');
 var rename = require('gulp-rename');
+var minify = require('gulp-minify');
+
 // Include plugins
 var plugins = require('gulp-load-plugins')(); // tous les plugins de package.json
 
 gulp.task('browserify', function() {
   // Single entry point to browserify 
-  gulp.src('./public/javascripts/main.js')
+  gulp.src('./lib/client.js')
     .pipe(browserify({
       insertGlobals : true,
       debug : !gulp.env.production
@@ -16,6 +18,20 @@ gulp.task('browserify', function() {
     .pipe(rename('results.js'))
     .pipe(gulp.dest('./public/javascripts/'))
 });
+
+gulp.task('compress', function() {
+  gulp.src('public/javascripts/*.js')
+    .pipe(minify({
+        ext:{
+            src:'-debug.js',
+            min:'.js'
+        },
+        exclude: ['tasks'],
+        ignoreFiles: ['.combo.js', '-min.js]'
+    }))
+    .pipe(gulp.dest('public/js'))
+});
+
 
 // Tâche "build" = SASS + autoprefixer + CSScomb + beautify (source -> destination)
 gulp.task('css', function () {
@@ -74,7 +90,7 @@ gulp.task('browser-sync',['nodemon'], function(cb){
 gulp.task('build', ['css','minify']);
 
 // Tâche "prod" = Build + minify
-gulp.task('prod', ['build',  'minify']);
+gulp.task('prod', ['build', 'minify']);
 
 // Tâche "watch" = je surveille *scss
 gulp.task('watch', function () {
