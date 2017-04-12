@@ -2698,6 +2698,10 @@ text.value {
   stroke-width: 2;
 }
 
+.scr-name:first-letter {
+  text-transform: uppercase;
+}
+
 .scr-chart figcaption {
   font-size: 1.2em;
 }
@@ -2913,10 +2917,6 @@ text.value {
     background: #37948b;
     box-shadow: 0 0 3px #37948b;
   }
-}
-
-.scr-chart {
-  margin: 2em 0;
 }
 
 @media (max-width: 1024px) {

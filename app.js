@@ -41,8 +41,8 @@ _.forEach(config.elections,function(election,id){
 
       k++;
       res[id][modeVote] = ballots;
-      if(k==length)
-	resultsBoard.init(_.cloneDeep(config.elections),_.cloneDeep(config.scrutins),res);
+//      if(k==length)
+//	resultsBoard.init(_.cloneDeep(config.elections),_.cloneDeep(config.scrutins),res);
     });
 })
 })

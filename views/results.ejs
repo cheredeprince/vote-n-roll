@@ -1,47 +1,33 @@
 <%-include( 'partials/header',{"elections": elections, "electionId":electionId})%>
 <%if(message){%>
-    <p class="message <%=messageType%>"><%-message%></p>
+<p class="message <%=messageType%>"><%-message%></p>
 <%}%>
 
-<div>
-  <div class="grid-6-small">
+<% include partials/total %>
+
+<p>Sélectionner les candidats que vous souhaitez voir apparaître parmi la liste ci-dessous : </p>
+<div class="grid-6-small">
   <% election.Candidats.labels.forEach(function(cLabel){ %>
   <%-include("partials/card-select.ejs",{"candidat":election.Candidats[cLabel] }) %>
   <%})%>
-  </div>
 </div>
-<% include partials/total %>
-
 
 <% voteModesInfo.forEach(function(voteInfo){ %>
-
-    <p>Voici les résultats des <strong><%=voteInfo.nbVotes%></strong> votes du <%=voteInfo.name%> pour <%=electionName%>.</p>
-    <%var scrutins = voteInfo.scrutins;
-    scrutins.forEach(function(scrutin){ %>%>
-	<% include partials/scrutin %>
-    <%})
-    })%>
-
-
-    <script src="https://d3js.org/d3.v3.min.js"></script> 
-    <!-- <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js?2.5.0"></script> -->
-    <script src="/javascripts/display.js"></script>
-
-<!--    <script>
+<h2><%=voteInfo.name%></h2>
+<p>Voici les résultats des <strong><%=voteInfo.nbVotes%></strong> votes du <%=voteInfo.name%> pour <%=electionName%>.</p>
+<%var scrutins = voteInfo.scrutins;
+      scrutins.forEach(function(scrutin){ %>%>
+<% include partials/scrutin %>
+<%})
+   })%>
 
 
-</script>
--->
-
+<script src="https://d3js.org/d3.v3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/lodash/4.17.4/lodash.min.js"></script>
 <script>
   var Election = <%-JSON.stringify(election)%>;
   var VoteMode = <%-JSON.stringify(voteModeConf)%>;
-</script>
-    <script
-			  src="https://code.jquery.com/jquery-3.2.1.min.js"
-			  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-			  crossorigin="anonymous"></script>
-		
-    <script src="/javascripts/results.js"></script>
-    
+</script>		
+<script src="/javascripts/results.min.js"></script>
+
 <%-include partials/footer%>

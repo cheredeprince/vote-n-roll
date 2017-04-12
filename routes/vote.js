@@ -149,8 +149,6 @@ router.post('/ajout/:electionId',bruteForce.prevent, function(req, res, next){
 	    _.forEach(voteMode,function(m,modelLabel){
 		//mise à jour des résultats
 		VoteBox.getFrom(E.id,modelLabel,function(err,ballots){
-		    resultsBoard.update(E.id,modelLabel,ballots);
-
 		    //save csv of results
 		    var ws = fs.createWriteStream(__dirname+"/../public/data/votes-"+electionId+"-"+modelLabel+".csv");
 		    require('../lib/toCSV')[m.toCSV](ballots,ws);
@@ -183,11 +181,13 @@ router.get('/json/:electionId',function(req,res,next){
 
     grapBallot(0);
 
-    function grapBallot(i){
+      function grapBallot(i){
 	VoteBox.getFrom(E.id,voteModes[i],function(err,ballots){
 	    if(err) return next(err);
 
-	    allBallots[voteModes[i]] = ballots
+	  var toJSON = require('../lib/toJSON');
+
+	  allBallots[voteModes[i]] = toJSON[voteModes[i]+"JSON"](ballots);
 	    
 	    i++;
 	    if(voteModes.length == i)
@@ -198,93 +198,11 @@ router.get('/json/:electionId',function(req,res,next){
 	}); 
     }
 
+
     function send(){
-	res.send(allBallots);
+      res.send(allBallots);
     }
     
 })
-
-// /* POST vote pref */
-// router.post('/ajout/pref/:electionId', function(req, res, next){
-
-
-//   var electionId = req.params.electionId;
-//   var E = Election.get(electionId);
-
-//   if(typeof E == 'undefined'){
-//     res.status(404);
-//     res.send('404: Page not Found');
-//     return;
-//   }
-
-//   var candLabel = E.Candidats.labels();
-//   var params    = req.body,
-//       labelList = [];
-
-//   for(index in candLabel){
-//     var i = parseInt(params[candLabel[index]],10);
-//     labelList[i] = candLabel[index];
-//   }
-
-//   VoteBox.addTo(E.id,"pref",labelList,candLabel,function(err){
-//     if(err){
-//       if(err =="invalid"){
-// 	var message = encodeURIComponent("Vote invalide, pensez à classer TOUS les candidats");
-// 	res.redirect('/vote/'+electionId+'?error='+message+'&to=pref#pref');
-//       }else
-// 	return next(err);
-//     }else{
-//       //mise à jour des résultats
-//       VoteBox.getFrom(E.id,"pref",function(err,ballots){
-// 	resultsBoard.update(E.id,"pref",ballots);
-//       })
-
-//       var message = encodeURIComponent("Votre vote pour le vote alternatif a été pris en compte. Vous pouvez voter pour le jugement majoritaire à présent.");
-//       res.redirect('/vote/'+electionId+'?message='+message+'&to=jug#jug');
-//     }
-//   });
-// })
-
-// /* POST vote jug */
-// router.post('/ajout/jug/:electionId', function(req, res, next){
-
-//   var electionId = req.params.electionId;
-//   var E = Election.get(electionId);
-
-//   if(typeof E == 'undefined'){
-//     res.status(404);
-//     res.send('404: Page not Found');
-//     return;
-//   }
-
-
-//   var candLabel = E.Candidats.labels();
-//   var params    = req.body,
-//       jugPerCand= {};
-
-//   for(index in candLabel){
-//     jugPerCand[candLabel[index]] = params["jug-"+candLabel[index]];
-//   }
-
-
-//   VoteBox.addTo(E.id,"jug",jugPerCand,candLabel,function(err){
-//     if(err){
-//       if(err =="invalid"){
-// 	var message = encodeURIComponent("Vote invalide, pensez à juger TOUS les candidats");
-// 	res.redirect('/vote/'+electionId+'?error='+message+'&to=jug#jug');
-//       }else
-// 	return next(err);
-//     }else{
-//       //mise à jour des résultats
-//       VoteBox.getFrom(E.id,"jug",function(err,ballots){
-// 	resultsBoard.update(E.id,"jug",ballots);
-//       })
-
-//       var message = encodeURIComponent("Votre vote par jugement a été pris en compte.");
-//       res.redirect('/resultats/'+electionId+'?message='+message);
-
-//     }
-//   });
-// })
 
 module.exports = router;

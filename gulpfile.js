@@ -27,7 +27,7 @@ gulp.task('compress', function() {
             min:'.js'
         },
         exclude: ['tasks'],
-        ignoreFiles: ['.combo.js', '-min.js]'
+        ignoreFiles: ['.combo.js', '-min.js']
     }))
     .pipe(gulp.dest('public/js'))
 });
@@ -95,7 +95,7 @@ gulp.task('prod', ['build', 'minify']);
 // Tâche "watch" = je surveille *scss
 gulp.task('watch', function () {
   gulp.watch('./public/stylesheets/*.scss', ['build']);
-  gulp.watch('./public/javascripts/*.js',['browserify'])
+  gulp.watch('./lib/*.js',['browserify'])
   gulp.watch(['./public/stylesheets/*.css',
 	      './views/**/*.ejs'],
 	     browserSync.reload);
