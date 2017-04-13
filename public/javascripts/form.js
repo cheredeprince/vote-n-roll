@@ -30,6 +30,7 @@ var initialClassBtn = document.getElementById("btn-submit").className;
         cardSelect.value= "";
         cardNumber.innerHTML = "";
         stack.push(+value);
+        stack.sort(function(a, b) { return +b - +a; });
         card.className = initialClassPrefCard;
 	cardNumber.style.display = "none";
       }
