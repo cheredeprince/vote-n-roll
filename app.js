@@ -39,19 +39,21 @@ _.forEach(config.elections,function(election,id){
       var ws = fs.createWriteStream(__dirname+"/public/data/votes-"+id+"-"+modeVote+".csv");
       require('./lib/toCSV')[config.voteModes[modeVote].toCSV](ballots,ws);
 
-      
       k++;
       res[id][modeVote] = ballots;
-      if(k==length)
-	resultsBoard.init(_.cloneDeep(config.elections),_.cloneDeep(config.scrutins),res);
+//      if(k==length)
+//	resultsBoard.init(_.cloneDeep(config.elections),_.cloneDeep(config.scrutins),res);
     });
 })
 })
 
 
+
+
 var app = express();
 
 app.set('config',config);
+app.set('trust proxy','loopback');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -59,6 +61,7 @@ app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+
 app.use(morgan('combined'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

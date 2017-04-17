@@ -1,60 +1,33 @@
 <%-include( 'partials/header',{"elections": elections, "electionId":electionId})%>
 <%if(message){%>
-    <p class="message <%=messageType%>"><%-message%></p>
+<p class="message <%=messageType%>"><%-message%></p>
 <%}%>
-
 
 <% include partials/total %>
 
+<p>Sélectionner les candidats que vous souhaitez voir apparaître parmi la liste ci-dessous : </p>
+<div class="grid-6-small">
+  <% election.Candidats.labels.forEach(function(cLabel){ %>
+  <%-include("partials/card-select.ejs",{"candidat":election.Candidats[cLabel] }) %>
+  <%})%>
+</div>
 
 <% voteModesInfo.forEach(function(voteInfo){ %>
+<h2><%=voteInfo.name%></h2>
+<p>Voici les résultats des <strong><%=voteInfo.nbVotes%></strong> votes du <%=voteInfo.name%> pour <%=electionName%>.</p>
+<%var scrutins = voteInfo.scrutins;
+      scrutins.forEach(function(scrutin){ %>%>
+<% include partials/scrutin %>
+<%})
+   })%>
 
-    <p>Voici les résultats des <strong><%=voteInfo.nbVotes%></strong> votes du <%=voteInfo.name%> pour <%=electionName%>.</p>
-    <%var scrutins = voteInfo.scrutins;
-    scrutins.forEach(function(scrutin){ %>%>
-	<% include partials/scrutin %>
-    <%})
-    })%>
 
-
-    <script src="https://d3js.org/d3.v3.min.js"></script> 
-    <!-- <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js?2.5.0"></script> -->
-    <script src="/javascripts/display.js"></script>
-
-    <script>
-
-     var render = function(){
-
-	 var i,
-             charts = document.getElementsByClassName('scr-chart');
-
-	 for(i=0 ;i<charts.length;i++){
-             var svg =charts[i].getElementsByTagName("svg")[0];
-             if(svg)
-		 svg.parentNode.removeChild(svg);         
-	 };
-
-	 display.changeSize();
-	 display.setColors(<%-JSON.stringify(colors)%>);
-	 display.setConf("voteMode",<%-JSON.stringify(voteModeConf)%>);
-	 display.setConf("cand",<%-JSON.stringify(candConf)%>);
-	 
-	 var totalScore =  <%- JSON.stringify(total) %>;
-	 display.score(totalScore,"total");
-
-	 <% voteModesInfo.forEach(function(voteInfo){ %>
-	 
-	 
-	     <%var scrutins = voteInfo.scrutins;
-	     scrutins.forEach(function(scrutin){%>
-	 display.<%-scrutin.display%>(<%- JSON.stringify(scrutin.data)%>,<%-JSON.stringify(scrutin.label)%>);
-	     <%})
-	     })%>
- };
- 
- window.addEventListener('resize',render);
- render();
-</script>
-
+<script src="https://d3js.org/d3.v3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/lodash/4.17.4/lodash.min.js"></script>
+<script>
+  var Election = <%-JSON.stringify(election)%>;
+  var VoteMode = <%-JSON.stringify(voteModeConf)%>;
+</script>		
+<script src="/javascripts/results.min.js"></script>
 
 <%-include partials/footer%>

@@ -11,10 +11,11 @@ var config = {};
 
 config.voteModes = {
   "pref" : {
-    "name": "vote alternatif",
+    "name": "vote par liste de préférence",
     "ejs" : "vote-pref",
     "postParser" : "votePref",
-    "toCSV": "prefCSV"
+    "toCSV": "prefCSV",
+    "toJSON": "prefJSON"
   },
   
   "jug" : {
@@ -22,6 +23,7 @@ config.voteModes = {
     "ejs" : "vote-jug",
     "postParser" : "voteJug",
     "toCSV": "jugCSV",
+    "toJSON": "jugJSON",
     "sortedMention" : ['insuf','passa','quitg','good','veryg'],
     // attention les couleurs doivent être aussi présentes dans style.scss
     // pour obtenir la palette original :
@@ -221,7 +223,7 @@ config.scrutins = {
     "presentation" : "Le scrutin majoritaire à deux tours sélectionne les deux candidats avec le plus de voix au cours d'un premier tour, puis à les remettre en compétition au cours d'un second tour, qui se déroule de façon similaire en ignorant sur les votes les candidats éliminés au premier tour pour désigner le vainqueur."
   },
   "majn": {
-    "name"     : "scrutin par éliminations",
+    "name"     : "vote alternatif",
     "voteMode" : "pref",
     "getRes"   : "getMajnRes",
     "mkRes"    : "majnSct",

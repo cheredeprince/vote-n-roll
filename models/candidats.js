@@ -56,16 +56,26 @@ exports.Candidats = function(data){
 				  },{});
 
 
+  for(var label in data){
+    this[label] = _.cloneDeep(data[label]);
+    this[label].label = label;
+  }
+
+
   this.labels = function(){
     return Object.keys(data);
   } 
 
+  this.labels = Object.keys(data);
+  
   this.getNameOf = function(label){
     if(data[label])
       return data[label].name;
     else
       return undefined;
   };
+
+  
 
   this.getImageOf = function(label){
     if(data[label])

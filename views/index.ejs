@@ -1,9 +1,6 @@
 <%-include partials/header%>
 <h2>Tester différents scrutins</h2>
-<p>L'objectif de Vote'n Roll est de simuler de réelles élections, en comparant différentes méthodes pour choisir l'élu.</p>
-
-    <h2>Voter de diverses manières</h2>
-    <p>Une fois dans l'isoloir, il vous sera demandé de voter suivant différents modes de vote.</p>
+<p>L'objectif de Vote'n Roll est de simuler de réelles élections, en comparant différentes méthodes pour choisir l'élu. Une fois dans l'isoloir, il vous sera demandé de voter suivant différents modes de vote.</p>
     <% elections.forEach(function(election){%>
 	<p class="txtcenter">
             <a class="btn" href="/vote/<%=election.id%>">L'isoloir de <%=election.name%></a>

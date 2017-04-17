@@ -1,10 +1,11 @@
 <%-include( 'partials/header',{"elections": elections, "electionId":electionId})%>
+<p>Dans l'isoloir, il vous est demandé de voter suivant 2 types de votes. Ces votes serviront à déduire les résultats de 6 scrutins. Le vote par liste de préférence pour le scrutin à un tour, deux tour, alternatif, de Bordas et de Condorcet. Le jugement majoritaire a un scrutin qui porte le même nom.</p>
 <form action="/vote/ajout/<%=electionId%>" method="post">
     <% ballotsList.forEach(function(ballot){ %>
 	<%-include('partials/'+ballot.ejs ,{"ballot":ballot})%>
     <%})%>
     <p>
-	<input type="submit" id="btn-submit" class="btn vote-btn" value="Soumettre votre vote alternatif et votre jugement">
+	<input type="submit" id="btn-submit" class="btn vote-btn" value="Soumettre votre liste et votre jugement">
     </p>
 </form>
 <script src="/javascripts/form.js"></script>

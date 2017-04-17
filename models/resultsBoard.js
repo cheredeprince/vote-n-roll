@@ -14,9 +14,9 @@ exports.update = function(election,voteMode,ballots){
 }
 
 exports.get = function(election,scrutin){
-  return _.cloneDeep(resultsBoards[election][scrutin]);
+  console.log("results")
+    return _.cloneDeep(resultsBoards[election][scrutin]);
 }
-
 exports.init = function(electionsConf,scrutinsConf,ballotsPerElection){
 
   var allScrutins = _.uniq(_.flatMap(electionsConf,(c)=>c.scrutins));

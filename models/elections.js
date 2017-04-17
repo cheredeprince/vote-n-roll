@@ -8,11 +8,13 @@ var Election = function(id,data,scrutinsConf){
   this.Candidats = new Candidats(data.candidats);
   this.name = data.name;
   this.id = id;
-  this.scrutins = _.reduce(data.scrutins,function(res,scrutin){
+  var scrutins = _.reduce(data.scrutins,function(res,scrutin){
     res[scrutin] = scrutinsConf[scrutin];
     res[scrutin].id = scrutin;
     return res;
   },{});
+  this.scrutins = scrutins;
+  this.voteModes = _.uniq(_.map(scrutins,(s) => s.voteMode))
 }
 
 exports.get = function(electionId){

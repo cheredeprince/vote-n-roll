@@ -12,6 +12,7 @@ h2:first-letter{
     text-transform: uppercase;
 }
 
+
 nav ul:nth-child(2){
     padding-top:0;    
 }
@@ -104,6 +105,14 @@ text.value {
     stroke-width:2;
 }
 
+.scr-name{
+    &:first-letter{
+	text-transform: uppercase;
+    }
+}
+
+
+
 .scr-chart figcaption{
     font-size: 1.2em;
 }
@@ -123,6 +132,10 @@ text.value {
     transition : filter 1s;
 }
 
+.card .card-name{
+    transition : color 1s;
+}
+
 .choosen-card .card-photo{
     filter: none;
 } 
@@ -134,6 +147,25 @@ text.value {
 .card-head{
     position:relative;
 }
+
+.card input[type=checkbox]{
+    display:none;
+}
+
+.card input[type=checkbox] ~label .card-name{
+    color: grey;
+}
+
+
+.card input[type=checkbox]:checked ~label .card-name{
+    color:black;
+}
+
+.card input[type=checkbox]:checked ~label img{
+  filter:none;
+}
+
+
 
 .card-number{
     display : none;
@@ -150,7 +182,6 @@ text.value {
 }
 
 .card-jug{
-
     display: flex;
     flex-direction:column;
     margin-top:1em;
@@ -242,9 +273,7 @@ $btn-color:  #37948b;
     }
 }
 
-.scr-chart{
-    margin: 2em 0;
-}
+
 
 @media (max-width: $medium) {
     .video-wrapper {

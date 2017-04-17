@@ -2698,6 +2698,10 @@ text.value {
   stroke-width: 2;
 }
 
+.scr-name:first-letter {
+  text-transform: uppercase;
+}
+
 .scr-chart figcaption {
   font-size: 1.2em;
 }
@@ -2720,6 +2724,11 @@ text.value {
           filter: grayscale(1);
 }
 
+.card .card-name {
+  -webkit-transition: color 1s;
+  transition: color 1s;
+}
+
 .choosen-card .card-photo {
   -webkit-filter: none;
           filter: none;
@@ -2732,6 +2741,23 @@ text.value {
 
 .card-head {
   position: relative;
+}
+
+.card input[type=checkbox] {
+  display: none;
+}
+
+.card input[type=checkbox] ~ label .card-name {
+  color: grey;
+}
+
+.card input[type=checkbox]:checked ~ label .card-name {
+  color: black;
+}
+
+.card input[type=checkbox]:checked ~ label img {
+  -webkit-filter: none;
+          filter: none;
 }
 
 .card-number {
@@ -2891,10 +2917,6 @@ text.value {
     background: #37948b;
     box-shadow: 0 0 3px #37948b;
   }
-}
-
-.scr-chart {
-  margin: 2em 0;
 }
 
 @media (max-width: 1024px) {

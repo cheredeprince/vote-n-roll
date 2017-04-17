@@ -1,18 +1,18 @@
 <div class="card txtcenter">
 
-    <select name="<%=nameLab[i].label%>">
+    <select name="<%=candidat.label%>">
         <option value="" selected="" >--</option>
-        <%for(var j=0;j<nameLab.length;j++){%>
+        <%for(var j=0;j<candidatLength;j++){%>
             <option value="<%=j%>"><%=j+1%></option>
         <%}%>  
     </select>
     
     <div class="card-head w75 center">
         
-        <img src="<%=nameLab[i].image%>" alt="<%=nameLab[i].name%>" class="card-photo"/>
+        <img src="<%=candidat.image%>" alt="<%=candidat.name%>" class="card-photo"/>
         <span class="card-number"></span>
     </div>
     <div class="card-name">
-        <h3><%=nameLab[i].name%></h3>
+        <h3><%=candidat.name%></h3>
     </div>
 </div>

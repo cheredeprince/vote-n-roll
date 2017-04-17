@@ -1,13 +1,15 @@
-<h2><a href="#pref" name="pref">Le vote alternatif</a></h2>
-<%if(message && messageTo == "pref"){%>
-    <p class="message <%=messageType%>"><%-message%></p>
-<%}%>
-<p><strong>Sélectionne</strong> tous les candidats par ordre de préférence, en cliquant dessus, puis soumets ton vote.</p>
+<h2><a href="#pref" name="pref">Le vote par liste de préférence</a></h2>
+
+<p><strong>Sélectionne</strong> tous les candidats par ordre de préférence, en cliquant dessus, puis passe au jugement majoritaire.</p>
+
+<p class="message <%=messageType%>"><%if(message && messageTo == "pref"){%>
+  <%-message%>
+  <%}%></p>
 
 
     <div class="grid-4-small-2 has-gutter-xl">
-        <%for(var i =0;i<nameLab.length;i++){%>
-            <% include card %>
+      <%for(var i =0;i<nameLab.length;i++){%>
+		<%-include('card.ejs',{"candidat": nameLab[i], "candidatLength": nameLab.length }) %>
         <%}%>
     </div>
     <p>
