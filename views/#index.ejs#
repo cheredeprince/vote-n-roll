@@ -1,0 +1,34 @@
+<%-include partials/header%>
+<h2>Tester différents scrutins</h2>
+<p>L'objectif de Vote'n Roll est de simuler de réelles élections, en comparant différentes méthodes pour choisir l'élu.</p>
+
+    <h2>Voter de diverses manières</h2>
+    <p>Une fois dans l'isoloir, il vous sera demandé de voter suivant différents modes de vote.</p>
+    <% elections.forEach(function(election){%>
+	<p class="txtcenter">
+            <a class="btn" href="/vote/<%=election.id%>">L'isoloir de <%=election.name%></a>
+	</p>
+    <%}) %>
+
+    <h2>Pourquoi comparer ces scrutins ?</h2>
+    <p>La construction de Vote'n Roll a été motivée par les vidéos suivantes, qui montrent combien l'influence du scrutin est forte sur les résultats du vote. Le maître d'Albert expose un exemple de vote, où chaque candidat peut remporter la victoire avec un scrutin.</p>
+    <div  class="video-wrapper">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/vfTJ4vmIsO4" frameborder="0" allowfullscreen></iframe>
+    </div>
+    <p>David Louapre discute de certaines propriétés des votes et présente un autre scrutin : le jugement majoritaire.</p>
+    <div  class="video-wrapper">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/ZoGH7d51bvc" frameborder="0" allowfullscreen></iframe>
+    </div>
+<h2>
+
+    <p class="">Je souhaite remercier tous ces petits gens, qui ont fait tous ces petits programmes, qui m'ont permis de faire le mien : </p>
+    <ul>
+        <li>tous les gens derrières <a href="https://d3js.org/">D3.js</a> ; </li>
+        <li>tous ceux participant à <a href="http://expressjs.com/" >express</a> ; </li>
+        <li>aux réalisateurs de <a href="http://knacss.com/">knacss</a> ; </li>
+        <li>ignorzilla pour son <a href="http://bl.ocks.org/igorzilla/3086583">diagramme de flux</a> ; </li>
+        <li>juancb pour son <a href="https://bl.ocks.org/juan-cb/faf62e91e3c70a99a306">histogramme horizontal</a> ; </li>
+        <li>Mike Bostock pour son <a href="https://bl.ocks.org/mbostock/3887051">histogramme groupé</a>.</li>
+
+
+<%-include partials/footer%>
