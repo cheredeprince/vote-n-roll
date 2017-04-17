@@ -67,7 +67,7 @@ config.elections = {
       },
       "lep" : {
 	"name"  : "Marine Le Pen",
-	"image" : "https://pbs.twimg.com/profile_images/806157043677724672/0Pe1Xh_U_200x200.jpg",
+	"image" : "https://pbs.twimg.com/profile_images/853280204713754624/i5oIAxWk_200x200.jpg",
 	"color" : "#1e2148"
       },
       "mac" : {
