@@ -1,6 +1,9 @@
 # Vote'n Roll
 Un site, qui permet de tester des différents types d'élection.
 
+# Démonstration
+[demo](http://votenroll.cheredeprince.net)
+
 # Installation
 
 Pour l'installation, entrer les commandes suivantes :
