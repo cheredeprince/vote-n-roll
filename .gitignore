@@ -37,4 +37,4 @@ db/
 
 #emacs
 *~
-#public/data/*
+public/data/*.csv

@@ -47,8 +47,6 @@ _.forEach(config.elections,function(election,id){
 })
 
 
-
-
 var app = express();
 
 app.set('config',config);
