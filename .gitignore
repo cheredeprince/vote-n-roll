@@ -1,6 +1,8 @@
 #dev
 public/robots.txt
 bin/www
+main.js
+.tern-port
 # Logs
 logs
 *.log
@@ -37,4 +39,4 @@ db/
 
 #emacs
 *~
-public/data/
+public/data/*.csv
